@@ -1,5 +1,11 @@
 --cpu=Cortex-M4.fp
 ".\bin\testprojekt.o"
+".\bin\blackmannuttall.o"
+".\bin\cyclicshift.o"
+".\bin\fft.o"
+".\bin\hanning.o"
+".\bin\lowpass.o"
+".\bin\utils.o"
 ".\bin\am_util_delay.o"
 ".\bin\am_util_faultisr.o"
 ".\bin\am_util_id.o"
@@ -7,13 +13,7 @@
 ".\bin\startup_keil.o"
 "../../MCU/bsp/keil/bin/libam_bsp.lib"
 "../../MCU/mcu/apollo2/hal/keil/bin/libam_hal.lib"
-".\bin\blackmannuttall.o"
-".\bin\cyclicshift.o"
-".\bin\hanning.o"
-".\bin\lowpass.o"
-".\bin\utils.o"
-".\bin\fft.o"
---strict --scatter ".\testprojekt.sct"
+--strict --scatter "testprojekt.sct"
 ../../MCU/mcu/apollo2/hal/keil/bin/libam_hal.lib(am_hal_global.o) --keep=am_hal_global.o(.data) --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
 --list ".\Listings\testprojekt.map" -o .\bin\testprojekt.axf
