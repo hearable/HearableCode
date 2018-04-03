@@ -1,0 +1,301 @@
+;#<FEEDBACK># ARM Linker, 5060750: Last Updated: Fri Mar 30 19:13:25 2018
+;VERSION 0.2
+;FILE am_bsp.o
+am_bsp_iom_disable <= USED 0
+am_bsp_iom_enable <= USED 0
+am_bsp_iom_i2c_pins_disable <= USED 0
+am_bsp_iom_i2c_pins_enable <= USED 0
+am_bsp_iom_power_off_save <= USED 0
+am_bsp_iom_power_on_restore <= USED 0
+am_bsp_iom_spi_pins_disable <= USED 0
+am_bsp_iom_spi_pins_enable <= USED 0
+am_bsp_uart_power_off_save <= USED 0
+am_bsp_uart_power_on_restore <= USED 0
+am_bsp_uart_string_print <= USED 0
+;FILE am_hal_cachectrl.o
+am_hal_cachectrl_cache_config <= USED 0
+am_hal_cachectrl_cache_enables <= USED 0
+am_hal_cachectrl_config <= USED 0
+am_hal_cachectrl_config_default <= USED 0
+am_hal_cachectrl_disable <= USED 0
+am_hal_cachectrl_invalidate_flash_cache <= USED 0
+am_hal_cachectrl_reset_statistics <= USED 0
+am_hal_cachectrl_sleep_mode_enable <= USED 0
+am_hal_cachectrl_sleep_mode_status <= USED 0
+;FILE am_hal_clkgen.o
+am_hal_clkgen_clkout_disable <= USED 0
+am_hal_clkgen_clkout_enable <= USED 0
+am_hal_clkgen_hfrc_adjust_disable <= USED 0
+am_hal_clkgen_hfrc_adjust_enable <= USED 0
+am_hal_clkgen_int_clear <= USED 0
+am_hal_clkgen_int_disable <= USED 0
+am_hal_clkgen_int_enable <= USED 0
+am_hal_clkgen_int_enable_get <= USED 0
+am_hal_clkgen_int_set <= USED 0
+am_hal_clkgen_int_status_get <= USED 0
+am_hal_clkgen_osc_start <= USED 0
+am_hal_clkgen_uarten_set <= USED 0
+;FILE am_hal_ctimer.o
+__asm___15_am_hal_ctimer_c_5490335f__back2back_reads <= USED 0
+am_hal_ctimer_adc_trigger_disable <= USED 0
+am_hal_ctimer_adc_trigger_enable <= USED 0
+am_hal_ctimer_compare_set <= USED 0
+am_hal_ctimer_config <= USED 0
+am_hal_ctimer_config_single <= USED 0
+am_hal_ctimer_int_clear <= USED 0
+am_hal_ctimer_int_disable <= USED 0
+am_hal_ctimer_int_enable <= USED 0
+am_hal_ctimer_int_enable_get <= USED 0
+am_hal_ctimer_int_register <= USED 0
+am_hal_ctimer_int_service <= USED 0
+am_hal_ctimer_int_set <= USED 0
+am_hal_ctimer_int_status_get <= USED 0
+am_hal_ctimer_pin_disable <= USED 0
+am_hal_ctimer_pin_enable <= USED 0
+am_hal_ctimer_pin_invert <= USED 0
+am_hal_ctimer_read <= USED 0
+am_hal_ctimer_stop <= USED 0
+;FILE am_hal_debug.o
+;FILE am_hal_flash.o
+am_hal_flash_copy_protect_check <= USED 0
+am_hal_flash_copy_protect_set <= USED 0
+am_hal_flash_customer_info_signature_check <= USED 0
+am_hal_flash_debugger_disable <= USED 0
+am_hal_flash_debugger_disable_check <= USED 0
+am_hal_flash_delay_status_change <= USED 0
+am_hal_flash_erase_info <= USED 0
+am_hal_flash_erase_main_plus_info <= USED 0
+am_hal_flash_erase_main_plus_info_both_instances <= USED 0
+am_hal_flash_info_erase_disable <= USED 0
+am_hal_flash_info_erase_disable_check <= USED 0
+am_hal_flash_info_program_disable <= USED 0
+am_hal_flash_info_program_disable_get <= USED 0
+am_hal_flash_info_signature_set <= USED 0
+am_hal_flash_load_ui32 <= USED 0
+am_hal_flash_mass_erase <= USED 0
+am_hal_flash_page_erase <= USED 0
+am_hal_flash_program_info <= USED 0
+am_hal_flash_program_main <= USED 0
+am_hal_flash_recovery <= USED 0
+am_hal_flash_store_ui32 <= USED 0
+am_hal_flash_swo_disable <= USED 0
+am_hal_flash_swo_disable_check <= USED 0
+am_hal_flash_wipe_flash_enable <= USED 0
+am_hal_flash_wipe_flash_enable_check <= USED 0
+am_hal_flash_wipe_sram_enable <= USED 0
+am_hal_flash_wipe_sram_enable_check <= USED 0
+am_hal_flash_write_protect_check <= USED 0
+am_hal_flash_write_protect_set <= USED 0
+;FILE am_hal_gpio.o
+am_hal_gpio_input_read <= USED 0
+am_hal_gpio_int_clear <= USED 0
+am_hal_gpio_int_disable <= USED 0
+am_hal_gpio_int_enable <= USED 0
+am_hal_gpio_int_enable_get <= USED 0
+am_hal_gpio_int_polarity_bit_get <= USED 0
+am_hal_gpio_int_register <= USED 0
+am_hal_gpio_int_service <= USED 0
+am_hal_gpio_int_set <= USED 0
+am_hal_gpio_int_status_get <= USED 0
+am_hal_gpio_out_enable_bit_get <= USED 0
+am_hal_gpio_out_enable_get <= USED 0
+am_hal_gpio_out_read <= USED 0
+am_hal_gpio_pin_config_read <= USED 0
+;FILE am_hal_i2c_bit_bang.o
+am_hal_i2c_bit_bang_init <= USED 0
+am_hal_i2c_bit_bang_receive <= USED 0
+am_hal_i2c_bit_bang_send <= USED 0
+;FILE am_hal_interrupt.o
+am_hal_interrupt_disable <= USED 0
+am_hal_interrupt_enable <= USED 0
+am_hal_interrupt_master_enable <= USED 0
+am_hal_interrupt_pend_clear <= USED 0
+am_hal_interrupt_pend_set <= USED 0
+am_hal_interrupt_priority_set <= USED 0
+;FILE am_hal_iom.o
+__asm___12_am_hal_iom_c_97762dd2__iom_workaround_loop <= USED 0
+am_hal_iom_command_repeat_set <= USED 0
+am_hal_iom_config <= USED 0
+am_hal_iom_disable <= USED 0
+am_hal_iom_enable <= USED 0
+am_hal_iom_error_status_get <= USED 0
+am_hal_iom_fifo_empty_slots <= USED 0
+am_hal_iom_fifo_full_slots <= USED 0
+am_hal_iom_fifo_read <= USED 0
+am_hal_iom_fifo_write <= USED 0
+am_hal_iom_frequency_get <= USED 0
+am_hal_iom_i2c_cmd_run <= USED 0
+am_hal_iom_i2c_read <= USED 0
+am_hal_iom_i2c_read_nb <= USED 0
+am_hal_iom_i2c_read_nq <= USED 0
+am_hal_iom_i2c_write <= USED 0
+am_hal_iom_i2c_write_nb <= USED 0
+am_hal_iom_i2c_write_nq <= USED 0
+am_hal_iom_int_clear <= USED 0
+am_hal_iom_int_disable <= USED 0
+am_hal_iom_int_enable <= USED 0
+am_hal_iom_int_enable_get <= USED 0
+am_hal_iom_int_service <= USED 0
+am_hal_iom_int_set <= USED 0
+am_hal_iom_int_status_get <= USED 0
+am_hal_iom_poll_complete <= USED 0
+am_hal_iom_power_off_save <= USED 0
+am_hal_iom_power_on_restore <= USED 0
+am_hal_iom_pwrctrl_disable <= USED 0
+am_hal_iom_pwrctrl_enable <= USED 0
+am_hal_iom_queue_i2c_read <= USED 0
+am_hal_iom_queue_i2c_write <= USED 0
+am_hal_iom_queue_init <= USED 0
+am_hal_iom_queue_length_get <= USED 0
+am_hal_iom_queue_service <= USED 0
+am_hal_iom_queue_spi_read <= USED 0
+am_hal_iom_queue_spi_write <= USED 0
+am_hal_iom_queue_start_next_msg <= USED 0
+am_hal_iom_sleeping_queue_flush <= USED 0
+am_hal_iom_spi_cmd_run <= USED 0
+am_hal_iom_spi_fullduplex <= USED 0
+am_hal_iom_spi_fullduplex_nq <= USED 0
+am_hal_iom_spi_read <= USED 0
+am_hal_iom_spi_read_nb <= USED 0
+am_hal_iom_spi_read_nq <= USED 0
+am_hal_iom_spi_write <= USED 0
+am_hal_iom_spi_write_nb <= USED 0
+am_hal_iom_spi_write_nq <= USED 0
+am_hal_iom_status_get <= USED 0
+am_hal_iom_workaround_word_write <= USED 0
+isRevB0 <= USED 0
+;FILE am_hal_itm.o
+am_hal_itm_disable <= USED 0
+am_hal_itm_print_not_busy <= USED 0
+am_hal_itm_stimulus_not_busy <= USED 0
+am_hal_itm_stimulus_reg_byte_write <= USED 0
+am_hal_itm_stimulus_reg_short_write <= USED 0
+am_hal_itm_stimulus_reg_word_write <= USED 0
+am_hal_itm_sync_send <= USED 0
+am_hal_itm_trace_port_disable <= USED 0
+am_hal_itm_trace_port_enable <= USED 0
+;FILE am_hal_mcuctrl.o
+am_hal_mcuctrl_device_info_get <= USED 0
+am_hal_mcuctrl_fault_capture_disable <= USED 0
+am_hal_mcuctrl_fault_capture_enable <= USED 0
+;FILE am_hal_pwrctrl.o
+am_hal_pwrctrl_periph_disable <= USED 0
+am_hal_pwrctrl_periph_enable <= USED 0
+;FILE am_hal_queue.o
+am_hal_queue_init <= USED 0
+am_hal_queue_item_add <= USED 0
+am_hal_queue_item_get <= USED 0
+;FILE am_hal_rtc.o
+am_hal_rtc_alarm_get <= USED 0
+am_hal_rtc_alarm_interval_set <= USED 0
+am_hal_rtc_alarm_set <= USED 0
+am_hal_rtc_int_clear <= USED 0
+am_hal_rtc_int_disable <= USED 0
+am_hal_rtc_int_enable <= USED 0
+am_hal_rtc_int_enable_get <= USED 0
+am_hal_rtc_int_set <= USED 0
+am_hal_rtc_int_status_get <= USED 0
+am_hal_rtc_osc_enable <= USED 0
+am_hal_rtc_time_12hour <= USED 0
+am_hal_rtc_time_get <= USED 0
+am_hal_rtc_time_set <= USED 0
+;FILE am_hal_stimer.o
+am_hal_stimer_capture_get <= USED 0
+am_hal_stimer_capture_start <= USED 0
+am_hal_stimer_capture_stop <= USED 0
+am_hal_stimer_compare_delta_set <= USED 0
+am_hal_stimer_compare_get <= USED 0
+am_hal_stimer_counter_clear <= USED 0
+am_hal_stimer_int_clear <= USED 0
+am_hal_stimer_int_disable <= USED 0
+am_hal_stimer_int_enable <= USED 0
+am_hal_stimer_int_enable_get <= USED 0
+am_hal_stimer_int_set <= USED 0
+am_hal_stimer_int_status_get <= USED 0
+;FILE am_hal_sysctrl.o
+am_hal_sysctrl_aircr_reset <= USED 0
+am_hal_sysctrl_buck_ctimer_isr_init <= USED 0
+am_hal_sysctrl_buck_update_complete <= USED 0
+am_hal_sysctrl_fpu_disable <= USED 0
+am_hal_sysctrl_fpu_enable <= USED 0
+am_hal_sysctrl_fpu_stacking_disable <= USED 0
+am_hal_sysctrl_fpu_stacking_enable <= USED 0
+;FILE am_hal_tpiu.o
+am_hal_tpiu_clock_disable <= USED 0
+am_hal_tpiu_clock_enable <= USED 0
+am_hal_tpiu_configure <= USED 0
+am_hal_tpiu_port_width_get <= USED 0
+am_hal_tpiu_port_width_set <= USED 0
+am_hal_tpiu_supported_port_width_get <= USED 0
+;FILE am_hal_uart.o
+am_hal_uart_char_receive_buffered <= USED 0
+am_hal_uart_char_receive_polled <= USED 0
+am_hal_uart_char_transmit_buffered <= USED 0
+am_hal_uart_char_transmit_polled <= USED 0
+am_hal_uart_clock_disable <= USED 0
+am_hal_uart_clock_enable <= USED 0
+am_hal_uart_config <= USED 0
+am_hal_uart_disable <= USED 0
+am_hal_uart_enable <= USED 0
+am_hal_uart_fifo_config <= USED 0
+am_hal_uart_flags_get <= USED 0
+am_hal_uart_get_status_buffered <= USED 0
+am_hal_uart_init_buffered <= USED 0
+am_hal_uart_int_clear <= USED 0
+am_hal_uart_int_disable <= USED 0
+am_hal_uart_int_enable <= USED 0
+am_hal_uart_int_enable_get <= USED 0
+am_hal_uart_int_status_get <= USED 0
+am_hal_uart_line_receive_polled <= USED 0
+am_hal_uart_power_off_save <= USED 0
+am_hal_uart_power_on_restore <= USED 0
+am_hal_uart_pwrctrl_disable <= USED 0
+am_hal_uart_pwrctrl_enable <= USED 0
+am_hal_uart_service_buffered <= USED 0
+am_hal_uart_service_buffered_timeout_save <= USED 0
+am_hal_uart_status_get <= USED 0
+am_hal_uart_string_transmit_buffered <= USED 0
+am_hal_uart_string_transmit_polled <= USED 0
+;FILE am_hal_vcomp.o
+am_hal_vcomp_config <= USED 0
+am_hal_vcomp_dac_level_set <= USED 0
+am_hal_vcomp_enable <= USED 0
+am_hal_vcomp_int_clear <= USED 0
+am_hal_vcomp_int_disable <= USED 0
+am_hal_vcomp_int_enable <= USED 0
+am_hal_vcomp_int_enable_get <= USED 0
+am_hal_vcomp_int_set <= USED 0
+am_hal_vcomp_int_status_get <= USED 0
+am_hal_vcomp_read <= USED 0
+;FILE am_util_delay.o
+am_util_delay_cycles <= USED 0
+am_util_delay_ms <= USED 0
+am_util_delay_us <= USED 0
+;FILE am_util_faultisr.o
+;FILE am_util_id.o
+am_util_id_device <= USED 0
+;FILE am_util_stdio.o
+am_util_stdio_sprintf <= USED 0
+am_util_stdio_strtoul <= USED 0
+am_util_stdio_textmode_set <= USED 0
+;FILE blackmannuttall.o
+BlackmanNutall <= USED 0
+;FILE cyclicshift.o
+CyclicCosineForwardShiftInTime <= USED 0
+CyclicForwardShiftInTime <= USED 0
+;FILE fft.o
+Fft_convolveComplex <= USED 0
+Fft_convolveReal <= USED 0
+Fft_transformBluestein <= USED 0
+;FILE hanning.o
+;FILE lowpass.o
+;FILE startup_keil.o
+am_memmanage_isr <= USED 0
+;FILE testprojekt.o
+;FILE utils.o
+ApplyWindow <= USED 0
+GetSamples <= USED 0
+GetSamples2 <= USED 0
+ProcessDataReduced <= USED 0
+stimer_init <= USED 0
+timepassed_inms <= USED 0

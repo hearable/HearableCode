@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M4.fp -D__EVAL -g -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ../
+-I.\RTE\_testprojekt
+-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include
+-IC:\Keil_v5\ARM\CMSIS\Include
+-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_PART_APOLLO2 -Dkeil
+-o .\bin\am_util_id.o --omf_browse .\bin\am_util_id.crf --depend .\bin\am_util_id.d --feedback ".\bin\testprojekt.fed" "../../MCU/utils/am_util_id.c"
