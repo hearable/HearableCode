@@ -50,7 +50,6 @@
 #include "am_bsp.h"
 #include "am_util.h"
 #include "Utils.h"
-#include "pffft.h"
 
 
 //*****************************************************************************
