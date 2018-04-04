@@ -1,0 +1,5 @@
+Dependencies for Project 'libam_bsp', Target 'libam_bsp': (DO NOT MODIFY !)
+F (../am_bsp.c)(0x5AC4ECBA)(--c99 -c --cpu Cortex-M4.fp -D__EVAL -O3 -Otime --apcs=interwork --split_sections -I ../../../../mcu/apollo2 -I ../../../../devices-I.\RTE\_libam_bsp-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="524" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_PART_APOLLO2 -Dkeil-o .\bin\am_bsp.o --omf_browse .\bin\am_bsp.crf --depend .\bin\am_bsp.d)
+I (../am_bsp.h)(0x5AC4ECBA)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x588BE5B4)
+I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x588BE5B4)

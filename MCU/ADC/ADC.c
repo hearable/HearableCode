@@ -50,16 +50,24 @@
 #include "am_mcu_apollo.h"
 #include "am_bsp.h"
 #include "am_util.h"
+#include <stdlib.h>
 
 //*****************************************************************************
 //
 // Define a circular buffer to hold the ADC samples
 //
 //*****************************************************************************
-#define ADC_SAMPLE_BUF_SIZE 1024
-#define ADC_SAMPLE_INDEX_M  0x3FF
-uint32_t g_ui32ADCSampleBuffer[ADC_SAMPLE_BUF_SIZE];
-uint32_t g_ui32ADCSampleIndex = 0;
+//#define ADC_SAMPLE_BUF_SIZE 1024
+//#define ADC_SAMPLE_INDEX_M  0x3FF
+#define windowSize 64 //TODO
+//Array auf Heap um Werte für Algorithmus abzuspeichern
+uint32_t* daten = (uint32_t*) calloc(3*windowSize, sizeof(uint32_t));
+uint32_t sampleIndex = 0;
+#define uint32_t period 10 //when to take sample
+
+
+//uint32_t g_ui32ADCSampleBuffer[ADC_SAMPLE_BUF_SIZE];
+//uint32_t g_ui32ADCSampleIndex = 0;
 
 //*****************************************************************************
 //
@@ -157,7 +165,7 @@ init_timerA3_for_ADC(void)
 		//(Interrupt)
     am_hal_ctimer_int_enable(AM_HAL_CTIMER_INT_TIMERA3);
 		//TimerNumber, TimerSegment, Period, OnTime
-    am_hal_ctimer_period_set(3, AM_HAL_CTIMER_TIMERA, 10, 5);
+    am_hal_ctimer_period_set(3, AM_HAL_CTIMER_TIMERA, period, 5);
 
     //
     // Enable the timer A3 to trigger the ADC directly
@@ -204,8 +212,15 @@ am_adc_isr(void)
         // and print it
         ui32FifoData = am_hal_adc_fifo_pop();
 				am_util_stdio_printf("%d \n", ui32FifoData);
-        g_ui32ADCSampleBuffer[g_ui32ADCSampleIndex] = AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData);
-        g_ui32ADCSampleIndex = (g_ui32ADCSampleIndex + 1) & ADC_SAMPLE_INDEX_M;
+				//Store data in heap array
+				daten[sampleIndex] = AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData);
+				//for debugging: print daten
+				am_util_debug_printf("%d \n", daten[sampleIndex]);
+				// calculate new index
+				sampleIndex = (sampleIndex + 1) % 192;
+				
+        //g_ui32ADCSampleBuffer[g_ui32ADCSampleIndex] = AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData);
+        //g_ui32ADCSampleIndex = (g_ui32ADCSampleIndex + 1) & ADC_SAMPLE_INDEX_M;
       } while (AM_HAL_ADC_FIFO_COUNT(ui32FifoData) > 0);
 
     }
