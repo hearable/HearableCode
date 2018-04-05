@@ -83,30 +83,28 @@ float* ProcessData(int windowSize, float overlappercentage, float sampleFrequenc
             currentWindowRe[i] *= lowpassFilter[i];
     }
 
-    CyclicCosineForwardShift(currentWindowRe, currentWindowIm, windowSize, sampleFrequency, shiftFrequency);
+    CyclicCosineModulation(currentWindowRe, currentWindowIm, windowSize, sampleFrequency, shiftFrequency);
     Fft_inverseTransform(currentWindowRe, currentWindowIm, windowSize);
+		
     float* currentResult = OverlapAddHanning(windowSize, overlappercentage, currentWindowRe, previousWindowRe);
     return ReturnWindowOutputHanning(windowSize, overlappercentage,currentResult, part);
 }
 										
 float* ProcessData_tweaked(int windowSize, float overlappercentage, float sampleFrequency, float shiftFrequency,
                     float* lowpassFilter, float* window, float* sin_table, float* cos_table, float* previousWindowRe, float* previousWindowIm,
-                    float* currentWindowRe, float* currentWindowIm, float* currentSample, OverlapPart part){
+                    float* currentWindowRe, float* currentWindowIm, float* currentSample, float* shiftVector){
 
     int overlapIndex = (int)((windowSize+1)*(1.0f-overlappercentage));
-    ApplyWindow(windowSize,currentWindowRe,currentWindowIm,previousWindowRe,previousWindowIm,currentSample,window);
-																			
-    Fft_transform_static(currentWindowRe, currentWindowIm, windowSize, sin_table, cos_table);
-											
+    ApplyWindow(windowSize,currentWindowRe,currentWindowIm,previousWindowRe,previousWindowIm,currentSample,window);				
+    Fft_transform_static(currentWindowRe, currentWindowIm, windowSize, sin_table, cos_table);												
     for(int i=0;i<windowSize;i++){
             currentWindowIm[i] *= lowpassFilter[i];
             currentWindowRe[i] *= lowpassFilter[i];
     }
-
-    CyclicCosineForwardShift(currentWindowRe, currentWindowIm, windowSize, sampleFrequency, shiftFrequency);
+		CyclicCosineForwardShift(currentWindowRe, currentWindowIm, windowSize, sampleFrequency, shiftFrequency);
     Fft_inverseTransform_static(currentWindowRe, currentWindowIm, windowSize, sin_table, cos_table);
-    float* currentResult = OverlapAddHanning(windowSize, overlappercentage, currentWindowRe, previousWindowRe);
-    return ReturnWindowOutputHanning(windowSize, overlappercentage,currentResult, part);
+
+    return OverlapAddHanning(windowSize, overlappercentage, currentWindowRe, previousWindowRe);
 }
 										
 float* ProcessDataReduced(int windowSize, float overlappercentage, float sampleFrequency, float shiftFrequency,
@@ -115,7 +113,7 @@ float* ProcessDataReduced(int windowSize, float overlappercentage, float sampleF
 
     int overlapIndex = (int)((windowSize+1)*(1.0f-overlappercentage));
     ApplyWindow(windowSize,currentWindowRe,currentWindowIm,previousWindowRe,previousWindowIm,currentSample,window);
-    CyclicCosineForwardShiftInTime(currentWindowRe,windowSize,sampleFrequency,shiftFrequency);
+    CyclicCosineModulationInTime(currentWindowRe,windowSize,sampleFrequency,shiftFrequency);
     float* currentResult = OverlapAddHanning(windowSize, overlappercentage, currentWindowRe, previousWindowRe);
     return ReturnWindowOutputHanning(windowSize, overlappercentage,currentResult, part);
 }
@@ -149,15 +147,15 @@ void TestSetup(Verbosity verb, int windowSize, int iterations){
     float* currentSample;
     currentSample = (float*) calloc(windowSize, sizeof(float));
 
-    float sampleFrequency = 64000.0f;
-    float cutOffFrequency = 20000.0f; // Sensibly audible frequency cutoff
-    float shiftFrequency = 2000.0f;
-    int lowpassRolloff = 6;
+    float sampleFrequency = 12000.0f;
+    float cutOffFrequency = 6000.0f; // Sensibly audible frequency cutoff
+    float shiftFrequency = 440.0f; // Use even multiples of the frequency resolution for coherent overlap
+    int lowpassRolloff = 4;
 
     float* lowpass = LowpassFilter(windowSize,sampleFrequency,cutOffFrequency,lowpassRolloff);
 
     float overlappercentage = 0.5f;
-    int overlapIndex = (int)((windowSize+1)*(1.0f-overlappercentage)); // Upward adjusted index for overlapping windows
+    int overlapIndex = (int)((windowSize)*(1.0f-overlappercentage)); // Upward adjusted index for overlapping windows
 
 		float* sinTable = (float*) calloc(windowSize/2, sizeof(float));
 		float* cosTable = (float*) calloc(windowSize/2, sizeof(float));
@@ -169,52 +167,52 @@ void TestSetup(Verbosity verb, int windowSize, int iterations){
 
 		float* cosinevector = (float*) calloc(windowSize, sizeof(float));
 		
-		InitializeCosineVector(cosinevector, windowSize, sampleFrequency, shiftFrequency);
+		InitializeCosineVectorAutoShift(cosinevector, windowSize, sampleFrequency, shiftFrequency);
+		
+		float* currentResult;
+    currentResult = (float*) calloc(windowSize, sizeof(float));
 
 		uint32_t time = 0;
 		stimer_init();
 
     for(int i=0; i<iterations; i++){
         GetSamples(windowSize,currentSample);
-
-        if(i == 0){
-					//currentOutput = ProcessDataReduced(windowSize, overlappercentage, sampleFrequency, shiftFrequency, lowpass, hanningWindow, previousWindowRe, previousWindowIm, currentWindowRe, currentWindowIm, cosinevector, currentSample, HEAD);
-					currentOutput = ProcessData_tweaked(windowSize, overlappercentage, sampleFrequency, shiftFrequency, lowpass, hanningWindow, sinTable, cosTable, previousWindowRe, previousWindowIm, currentWindowRe, currentWindowIm, currentSample, HEAD);
-
-					if(verb == VERBOSE){
+				currentOutput = ProcessData_tweaked(windowSize, overlappercentage, sampleFrequency, shiftFrequency, lowpass, hanningWindow, sinTable, cosTable, previousWindowRe, previousWindowIm, currentWindowRe, currentWindowIm, currentSample, cosinevector);
+			
+				if(i == (iterations-1)){
+					currentResult = ReturnWindowOutputHanning(windowSize, overlappercentage, currentOutput, MID);
+						if(verb == VERBOSE){ // MID
+							for(int j=0;j<windowSize-overlapIndex;j++){
+								am_util_stdio_printf("%f \n",currentResult[j]);
+							}
+						}
+						currentResult = ReturnWindowOutputHanning(windowSize, overlappercentage, currentOutput, TAIL);
+					if(verb == VERBOSE){ // TAIL
+							for(int j=0;j<overlapIndex;j++){
+								am_util_stdio_printf("%f \n",currentResult[j]);
+							}
+						}
+            free(currentResult);
+        } else if(i == 0){
+					currentResult = ReturnWindowOutputHanning(windowSize, overlappercentage, currentOutput, HEAD);
+					if(verb == VERBOSE){// HEAD
             for(int j=0;j<overlapIndex;j++){
-               am_util_stdio_printf("%f \n",currentOutput[j]);
+               am_util_stdio_printf("%f \n",currentResult[j]);
             }
 					}
-          free(currentOutput);
-        } else if(i == (iterations-1)){
-            //currentOutput = ProcessDataReduced(windowSize, overlappercentage, sampleFrequency, shiftFrequency, lowpass, hanningWindow, previousWindowRe, previousWindowIm, currentWindowRe, currentWindowIm, cosinevector, currentSample, MID);
-						currentOutput = ProcessData_tweaked(windowSize, overlappercentage, sampleFrequency, shiftFrequency, lowpass, hanningWindow, sinTable, cosTable, previousWindowRe, previousWindowIm, currentWindowRe, currentWindowIm, currentSample, MID);
-						if(verb == VERBOSE){
-							for(int j=0;j<(windowSize-overlapIndex);j++){
-								am_util_stdio_printf("%f \n",currentOutput[j]);
+          free(currentResult);
+        }  else {
+					currentResult = ReturnWindowOutputHanning(windowSize, overlappercentage, currentOutput, MID);
+						if(verb == VERBOSE){// MID
+							for(int j=0;j<windowSize-overlapIndex;j++){
+								am_util_stdio_printf("%f \n",currentResult[j]);
 							}
 						}
-          //currentOutput = ProcessDataReduced(windowSize, overlappercentage, sampleFrequency, shiftFrequency, lowpass, hanningWindow, previousWindowRe, previousWindowIm, currentWindowRe, currentWindowIm, cosinevector, currentSample, TAIL);
-						currentOutput = ProcessData_tweaked(windowSize, overlappercentage, sampleFrequency, shiftFrequency, lowpass, hanningWindow, sinTable, cosTable, previousWindowRe, previousWindowIm, currentWindowRe, currentWindowIm, currentSample, TAIL);
-						if(verb == VERBOSE){
-							for(int j=0;j<overlapIndex;j++){
-								am_util_stdio_printf("%f \n",currentOutput[j]);
-							}
-						}
-            free(currentOutput);
-        } else {
-            //currentOutput = ProcessDataReduced(windowSize, overlappercentage, sampleFrequency, shiftFrequency, lowpass, hanningWindow, previousWindowRe, previousWindowIm, currentWindowRe, currentWindowIm, cosinevector, currentSample, MID);
-						
-						currentOutput = ProcessData_tweaked(windowSize, overlappercentage, sampleFrequency, shiftFrequency, lowpass, hanningWindow, sinTable, cosTable, previousWindowRe, previousWindowIm, currentWindowRe, currentWindowIm, currentSample, MID);
-            if(verb == VERBOSE){
-							for(int j=0;j<(windowSize-overlapIndex);j++){
-								am_util_stdio_printf("%f \n",currentOutput[j]);
-							}
-						}
-            free(currentOutput);
+            free(currentResult);
         }
+				
     }
+		free(currentOutput);
 		
 		time = timepassed_inms(XT_PERIOD); // Get time which has passed
 		am_util_stdio_printf("%u ms\n",time);

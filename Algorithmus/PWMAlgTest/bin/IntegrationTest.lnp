@@ -1,0 +1,27 @@
+--cpu=Cortex-M4.fp
+".\bin\heap_2.o"
+".\bin\integrationtest.o"
+".\bin\rtos.o"
+".\bin\am_util_debug.o"
+".\bin\am_util_delay.o"
+".\bin\am_util_faultisr.o"
+".\bin\am_util_stdio.o"
+".\bin\startup_keil.o"
+"../../MCU/bsp/keil/bin/libam_bsp.lib"
+"../../MCU/mcu/apollo2/hal/keil/bin/libam_hal.lib"
+".\bin\port.o"
+".\bin\event_groups.o"
+".\bin\list.o"
+".\bin\queue.o"
+".\bin\tasks.o"
+".\bin\timers.o"
+".\bin\blackmannuttall.o"
+".\bin\cyclicshift.o"
+".\bin\fft.o"
+".\bin\hanning.o"
+".\bin\lowpass.o"
+".\bin\utils.o"
+--nodebug --strict --scatter "IntegrationTest.sct"
+../../MCU/mcu/apollo2/hal/keil/bin/libam_hal.lib(am_hal_global.o) --keep=am_hal_global.o(.data) --info sizes --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list ".\Listings\IntegrationTest.map" -o .\bin\IntegrationTest.axf

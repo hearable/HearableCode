@@ -24,7 +24,7 @@ float* ProcessDataReduced(int windowSize, float overlappercentage, float sampleF
 // ProcessData, only faster
 float* ProcessData_tweaked(int windowSize, float overlappercentage, float sampleFrequency, float shiftFrequency,
                     float* lowpassFilter, float* window, float* sinTable, float* cosTable, float* previousWindowRe, float* previousWindowIm,
-                    float* currentWindowRe, float* currentWindowIm, float* currentSample, OverlapPart part);
+                    float* currentWindowRe, float* currentWindowIm, float* currentSample, float* shiftVector);
 										
 // TestSetup simulates a usual run, measuring the time it takes to process new data
 void TestSetup(Verbosity verb, int windowSize, int iterations);

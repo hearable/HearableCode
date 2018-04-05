@@ -3,9 +3,9 @@
 <title>Static Call Graph - [.\bin\testprojekt.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\bin\testprojekt.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6090000: Last Updated: Wed Apr  4 00:05:27 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6090000: Last Updated: Fri Apr  6 10:22:11 2018
 <BR><P>
-<H3>Maximum Stack Usage =        800 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =        792 bytes + Unknown(Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
 __rt_entry_main &rArr; main &rArr; TestSetup &rArr; ProcessData_tweaked &rArr; Fft_inverseTransform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
 <P>
@@ -316,7 +316,7 @@ Global Symbols
 <P><STRONG><a name="[dc]"></a>__rt_entry_postsh_1</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$00000009))
 
 <P><STRONG><a name="[40]"></a>__rt_entry_main</STRONG> (Thumb, 0 bytes, Stack size unknown bytes, __rtentry2.o(.ARM.Collect$$rtentry$$0000000D))
-<BR><BR>[Stack]<UL><LI>Max Depth = 800 + Unknown Stack Size
+<BR><BR>[Stack]<UL><LI>Max Depth = 792 + Unknown Stack Size
 <LI>Call Chain = __rt_entry_main &rArr; main &rArr; TestSetup &rArr; ProcessData_tweaked &rArr; Fft_inverseTransform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[41]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -393,7 +393,7 @@ Global Symbols
 <LI><a href="#[4f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__Heap_ProvideMemory
 </UL>
 
-<P><STRONG><a name="[67]"></a>__aeabi_uldivmod</STRONG> (Thumb, 0 bytes, Stack size 48 bytes, lludivv7m.o(.text))
+<P><STRONG><a name="[68]"></a>__aeabi_uldivmod</STRONG> (Thumb, 0 bytes, Stack size 48 bytes, lludivv7m.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = __aeabi_uldivmod
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
@@ -499,8 +499,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[54]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[49]"></a>__aeabi_memclr</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_memclr.o(.text))
@@ -522,8 +522,8 @@ Global Symbols
 <P><STRONG><a name="[ec]"></a>__user_perthread_libspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, libspace.o(.text), UNUSED)
 
 <P><STRONG><a name="[54]"></a>__aeabi_errno_addr</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, rt_errno_addr_intlibspace.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__read_errno
-<LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
+<BR><BR>[Called By]<UL><LI><a href="#[55]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__set_errno
+<LI><a href="#[53]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__read_errno
 </UL>
 
 <P><STRONG><a name="[ed]"></a>__errno$intlibspace</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, rt_errno_addr_intlibspace.o(.text), UNUSED)
@@ -608,8 +608,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__default_signal_display
 </UL>
 
-<P><STRONG><a name="[5f]"></a>CyclicCosineForwardShift</STRONG> (Thumb, 1376 bytes, Stack size 96 bytes, cyclicshift.o(.text.CyclicCosineForwardShift))
-<BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = CyclicCosineForwardShift &rArr; calloc &rArr; malloc &rArr; __Heap_Full &rArr; __Heap_ProvideMemory &rArr; free
+<P><STRONG><a name="[5f]"></a>CyclicCosineForwardShift</STRONG> (Thumb, 860 bytes, Stack size 88 bytes, cyclicshift.o(.text.CyclicCosineForwardShift))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = CyclicCosineForwardShift &rArr; calloc &rArr; malloc &rArr; __Heap_Full &rArr; __Heap_ProvideMemory &rArr; free
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
@@ -631,10 +631,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
 </UL>
 
-<P><STRONG><a name="[64]"></a>Fft_inverseTransform_static</STRONG> (Thumb, 318 bytes, Stack size 24 bytes, fft.o(.text.Fft_inverseTransform_static))
+<P><STRONG><a name="[64]"></a>Fft_inverseTransform_static</STRONG> (Thumb, 326 bytes, Stack size 24 bytes, fft.o(.text.Fft_inverseTransform_static))
 <BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = Fft_inverseTransform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformRadix2
+<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformRadix2_static
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
 </UL>
 <BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessData_tweaked
@@ -644,20 +644,20 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 472<LI>Call Chain = Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_convolveComplex
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ul2d
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
-<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ul2d
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[68]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uldivmod
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transform_static
+<BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transform_static
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_inverseTransform_static
 <LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_convolveComplex
 </UL>
@@ -665,29 +665,29 @@ Global Symbols
 <P><STRONG><a name="[63]"></a>Fft_transformRadix2</STRONG> (Thumb, 2102 bytes, Stack size 96 bytes, fft.o(.text.Fft_transformRadix2))
 <BR><BR>[Stack]<UL><LI>Max Depth = 280<LI>Call Chain = Fft_transformRadix2 &rArr; __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<BR>[Calls]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
 <LI><a href="#[48]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;malloc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_inverseTransform_static
-<LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_convolveComplex
+<BR>[Called By]<UL><LI><a href="#[60]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_convolveComplex
 </UL>
 
-<P><STRONG><a name="[6f]"></a>Fft_transformRadix2_static</STRONG> (Thumb, 1248 bytes, Stack size 84 bytes, fft.o(.text.Fft_transformRadix2_static))
+<P><STRONG><a name="[65]"></a>Fft_transformRadix2_static</STRONG> (Thumb, 1248 bytes, Stack size 84 bytes, fft.o(.text.Fft_transformRadix2_static))
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = Fft_transformRadix2_static
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transform_static
+<BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transform_static
+<LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_inverseTransform_static
 </UL>
 
-<P><STRONG><a name="[6e]"></a>Fft_transform_static</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, fft.o(.text.Fft_transform_static))
+<P><STRONG><a name="[6f]"></a>Fft_transform_static</STRONG> (Thumb, 26 bytes, Stack size 0 bytes, fft.o(.text.Fft_transform_static))
 <BR><BR>[Stack]<UL><LI>Max Depth = 472<LI>Call Chain = Fft_transform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformRadix2_static
+<BR>[Calls]<UL><LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformRadix2_static
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
 </UL>
 <BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessData_tweaked
@@ -696,12 +696,12 @@ Global Symbols
 <P><STRONG><a name="[70]"></a>HanningWindow</STRONG> (Thumb, 1480 bytes, Stack size 104 bytes, hanning.o(.text.HanningWindow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 288<LI>Call Chain = HanningWindow &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[71]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memclr4
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calloc
 </UL>
@@ -709,14 +709,14 @@ Global Symbols
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
 </UL>
 
-<P><STRONG><a name="[74]"></a>InitializeCosineVector</STRONG> (Thumb, 408 bytes, Stack size 40 bytes, cyclicshift.o(.text.InitializeCosineVector))
-<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = InitializeCosineVector &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
+<P><STRONG><a name="[74]"></a>InitializeCosineVectorAutoShift</STRONG> (Thumb, 432 bytes, Stack size 40 bytes, cyclicshift.o(.text.InitializeCosineVectorAutoShift))
+<BR><BR>[Stack]<UL><LI>Max Depth = 224<LI>Call Chain = InitializeCosineVectorAutoShift &rArr; __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Calls]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
 </UL>
@@ -731,7 +731,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
 </UL>
 
-<P><STRONG><a name="[76]"></a>OverlapAddHanning</STRONG> (Thumb, 334 bytes, Stack size 40 bytes, hanning.o(.text.OverlapAddHanning))
+<P><STRONG><a name="[76]"></a>OverlapAddHanning</STRONG> (Thumb, 332 bytes, Stack size 40 bytes, hanning.o(.text.OverlapAddHanning))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = OverlapAddHanning &rArr; calloc &rArr; malloc &rArr; __Heap_Full &rArr; __Heap_ProvideMemory &rArr; free
 </UL>
 <BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
@@ -740,41 +740,46 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessData_tweaked
 </UL>
 
-<P><STRONG><a name="[77]"></a>ProcessData_tweaked</STRONG> (Thumb, 908 bytes, Stack size 112 bytes, utils.o(.text.ProcessData_tweaked))
-<BR><BR>[Stack]<UL><LI>Max Depth = 608<LI>Call Chain = ProcessData_tweaked &rArr; Fft_inverseTransform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
+<P><STRONG><a name="[77]"></a>ProcessData_tweaked</STRONG> (Thumb, 878 bytes, Stack size 104 bytes, utils.o(.text.ProcessData_tweaked))
+<BR><BR>[Stack]<UL><LI>Max Depth = 600<LI>Call Chain = ProcessData_tweaked &rArr; Fft_inverseTransform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[76]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OverlapAddHanning
-<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transform_static
+<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transform_static
 <LI><a href="#[64]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_inverseTransform_static
 <LI><a href="#[5f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CyclicCosineForwardShift
 </UL>
 <BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
 </UL>
 
-<P><STRONG><a name="[78]"></a>ReturnWindowOutputHanning</STRONG> (Thumb, 158 bytes, Stack size 32 bytes, hanning.o(.text.ReturnWindowOutputHanning), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
+<P><STRONG><a name="[78]"></a>ReturnWindowOutputHanning</STRONG> (Thumb, 158 bytes, Stack size 32 bytes, hanning.o(.text.ReturnWindowOutputHanning))
+<BR><BR>[Stack]<UL><LI>Max Depth = 96<LI>Call Chain = ReturnWindowOutputHanning &rArr; calloc &rArr; malloc &rArr; __Heap_Full &rArr; __Heap_ProvideMemory &rArr; free
+</UL>
+<BR>[Calls]<UL><LI><a href="#[4e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_memcpy4
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calloc
 </UL>
+<BR>[Called By]<UL><LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
+</UL>
 
-<P><STRONG><a name="[79]"></a>TestSetup</STRONG> (Thumb, 1600 bytes, Stack size 176 bytes, utils.o(.text.TestSetup))
-<BR><BR>[Stack]<UL><LI>Max Depth = 784<LI>Call Chain = TestSetup &rArr; ProcessData_tweaked &rArr; Fft_inverseTransform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
+<P><STRONG><a name="[79]"></a>TestSetup</STRONG> (Thumb, 1536 bytes, Stack size 176 bytes, utils.o(.text.TestSetup))
+<BR><BR>[Stack]<UL><LI>Max Depth = 776<LI>Call Chain = TestSetup &rArr; ProcessData_tweaked &rArr; Fft_inverseTransform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;am_util_stdio_printf
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;am_hal_stimer_counter_get
 <LI><a href="#[7a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;am_hal_stimer_config
 <LI><a href="#[77]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ProcessData_tweaked
 <LI><a href="#[75]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LowpassFilter
+<LI><a href="#[78]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ReturnWindowOutputHanning
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HanningWindow
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVector
-<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
-<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
-<LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVectorAutoShift
+<LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
+<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2uiz
-<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
-<LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 <LI><a href="#[4c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;free
 <LI><a href="#[47]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;calloc
 </UL>
@@ -821,7 +826,7 @@ Global Symbols
 <P><STRONG><a name="[81]"></a>am_util_stdio_vsprintf</STRONG> (Thumb, 4476 bytes, Stack size 96 bytes, am_util_stdio.o(.text.am_util_stdio_vsprintf))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = am_util_stdio_vsprintf &rArr; __aeabi_d2f
 </UL>
-<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
+<BR>[Calls]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[7b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;am_util_stdio_printf
 </UL>
@@ -831,7 +836,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[41]"></a>main</STRONG> (Thumb, 132 bytes, Stack size 16 bytes, testprojekt.o(.text.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 800<LI>Call Chain = main &rArr; TestSetup &rArr; ProcessData_tweaked &rArr; Fft_inverseTransform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
+<BR><BR>[Stack]<UL><LI>Max Depth = 792<LI>Call Chain = main &rArr; TestSetup &rArr; ProcessData_tweaked &rArr; Fft_inverseTransform_static &rArr; Fft_transformBluestein &rArr; Fft_convolveComplex &rArr;  Fft_transformBluestein (Cycle)
 </UL>
 <BR>[Calls]<UL><LI><a href="#[82]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;am_util_stdio_terminal_clear
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;am_util_stdio_printf_init
@@ -853,7 +858,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 </UL>
 
-<P><STRONG><a name="[6c]"></a>__hardfp_cos</STRONG> (Thumb, 180 bytes, Stack size 32 bytes, cos.o(i.__hardfp_cos))
+<P><STRONG><a name="[6d]"></a>__hardfp_cos</STRONG> (Thumb, 180 bytes, Stack size 32 bytes, cos.o(i.__hardfp_cos))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = __hardfp_cos &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
@@ -867,11 +872,11 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HanningWindow
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformRadix2
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVector
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVectorAutoShift
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
 </UL>
 
-<P><STRONG><a name="[6d]"></a>__hardfp_sin</STRONG> (Thumb, 180 bytes, Stack size 32 bytes, sin.o(i.__hardfp_sin))
+<P><STRONG><a name="[6e]"></a>__hardfp_sin</STRONG> (Thumb, 180 bytes, Stack size 32 bytes, sin.o(i.__hardfp_sin))
 <BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = __hardfp_sin &rArr; __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
@@ -890,8 +895,8 @@ Global Symbols
 <P><STRONG><a name="[8d]"></a>__ieee754_rem_pio2</STRONG> (Thumb, 938 bytes, Stack size 120 bytes, rred.o(i.__ieee754_rem_pio2))
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = __ieee754_rem_pio2 &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
-<LI><a href="#[65]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
+<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ui2d
 <LI><a href="#[72]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
@@ -900,27 +905,27 @@ Global Symbols
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 <LI><a href="#[90]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dneg
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[8f]"></a>__kernel_cos</STRONG> (Thumb, 322 bytes, Stack size 64 bytes, cos_i.o(i.__kernel_cos))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = __kernel_cos &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[93]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[95]"></a>__kernel_poly</STRONG> (Thumb, 248 bytes, Stack size 24 bytes, poly.o(i.__kernel_poly))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = __kernel_poly &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
@@ -930,7 +935,7 @@ Global Symbols
 <P><STRONG><a name="[8e]"></a>__kernel_sin</STRONG> (Thumb, 280 bytes, Stack size 72 bytes, sin_i.o(i.__kernel_sin))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = __kernel_sin &rArr; __kernel_poly &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[73]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dsub
 <LI><a href="#[94]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_drsub
 <LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
@@ -938,8 +943,8 @@ Global Symbols
 <LI><a href="#[96]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ARM_fpclassify
 <LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__mathlib_dbl_underflow
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[8c]"></a>__mathlib_dbl_infnan</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_infnan))
@@ -947,23 +952,23 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[91]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dadd
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[8b]"></a>__mathlib_dbl_invalid</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_invalid))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = __mathlib_dbl_invalid &rArr; __aeabi_ddiv
 </UL>
-<BR>[Calls]<UL><LI><a href="#[66]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
+<BR>[Calls]<UL><LI><a href="#[67]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_ddiv
 </UL>
-<BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 </UL>
 
 <P><STRONG><a name="[97]"></a>__mathlib_dbl_underflow</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, dunder.o(i.__mathlib_dbl_underflow))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = __mathlib_dbl_underflow &rArr; __aeabi_dmul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[69]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
+<BR>[Calls]<UL><LI><a href="#[6a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
 </UL>
@@ -1160,8 +1165,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[90]"></a>__aeabi_dneg</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, basic.o(x$fpl$basic))
-<BR><BR>[Called By]<UL><LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
-<LI><a href="#[6c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
+<BR><BR>[Called By]<UL><LI><a href="#[6e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_sin
+<LI><a href="#[6d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__hardfp_cos
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
 
@@ -1175,14 +1180,14 @@ Global Symbols
 
 <P><STRONG><a name="[f7]"></a>_fabs</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, basic.o(x$fpl$basic), UNUSED)
 
-<P><STRONG><a name="[6a]"></a>__aeabi_d2f</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f))
+<P><STRONG><a name="[6b]"></a>__aeabi_d2f</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, d2f.o(x$fpl$d2f))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_d2f
 </UL>
 <BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;am_util_stdio_vsprintf
 <LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HanningWindow
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformRadix2
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVector
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVectorAutoShift
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
 </UL>
 
@@ -1206,7 +1211,7 @@ Global Symbols
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[66]"></a>__aeabi_ddiv</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, ddiv.o(x$fpl$ddiv))
+<P><STRONG><a name="[67]"></a>__aeabi_ddiv</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, ddiv.o(x$fpl$ddiv))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_ddiv
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HanningWindow
@@ -1244,14 +1249,14 @@ Global Symbols
 
 <P><STRONG><a name="[72]"></a>__aeabi_i2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt))
 <BR><BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HanningWindow
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVector
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVectorAutoShift
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
 <LI><a href="#[8d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__ieee754_rem_pio2
 </UL>
 
 <P><STRONG><a name="[f8]"></a>_dflt</STRONG> (Thumb, 46 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dflt), UNUSED)
 
-<P><STRONG><a name="[65]"></a>__aeabi_ui2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dfltu))
+<P><STRONG><a name="[66]"></a>__aeabi_ui2d</STRONG> (Thumb, 0 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dfltu))
 <BR><BR>[Called By]<UL><LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformRadix2
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
@@ -1260,7 +1265,7 @@ Global Symbols
 
 <P><STRONG><a name="[f9]"></a>_dfltu</STRONG> (Thumb, 38 bytes, Stack size 0 bytes, dflt_clz.o(x$fpl$dfltu), UNUSED)
 
-<P><STRONG><a name="[68]"></a>__aeabi_ul2d</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, dfltll_clz.o(x$fpl$dfltull))
+<P><STRONG><a name="[69]"></a>__aeabi_ul2d</STRONG> (Thumb, 0 bytes, Stack size 8 bytes, dfltll_clz.o(x$fpl$dfltull))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = __aeabi_ul2d
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
@@ -1268,13 +1273,13 @@ Global Symbols
 
 <P><STRONG><a name="[fa]"></a>_ll_uto_d</STRONG> (Thumb, 138 bytes, Stack size 8 bytes, dfltll_clz.o(x$fpl$dfltull), UNUSED)
 
-<P><STRONG><a name="[69]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
+<P><STRONG><a name="[6a]"></a>__aeabi_dmul</STRONG> (Thumb, 0 bytes, Stack size 32 bytes, dmul.o(x$fpl$dmul))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = __aeabi_dmul
 </UL>
 <BR>[Called By]<UL><LI><a href="#[70]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HanningWindow
 <LI><a href="#[63]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformRadix2
 <LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVector
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVectorAutoShift
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
 <LI><a href="#[95]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_poly
 <LI><a href="#[8e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__kernel_sin
@@ -1332,11 +1337,11 @@ Global Symbols
 <LI><a href="#[b0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
-<P><STRONG><a name="[6b]"></a>__aeabi_f2d</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d))
+<P><STRONG><a name="[6c]"></a>__aeabi_f2d</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = __aeabi_f2d
 </UL>
 <BR>[Called By]<UL><LI><a href="#[62]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Fft_transformBluestein
-<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVector
+<LI><a href="#[74]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;InitializeCosineVectorAutoShift
 <LI><a href="#[79]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TestSetup
 </UL>
 
