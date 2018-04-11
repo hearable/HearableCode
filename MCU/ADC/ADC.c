@@ -57,17 +57,20 @@
 // Define a circular buffer to hold the ADC samples
 //
 //*****************************************************************************
+// AUSKOMMENTIERTES
 //#define ADC_SAMPLE_BUF_SIZE 1024
 //#define ADC_SAMPLE_INDEX_M  0x3FF
-#define windowSize 64 //TODO
+//uint32_t g_ui32ADCSampleBuffer[ADC_SAMPLE_BUF_SIZE];
+//uint32_t g_ui32ADCSampleIndex = 0;
+
+//MÖGLICHE EINSTELLUNGEN
+#define windowSize 64 //Fenster von Algorithmus einsetzen
 //Array auf Heap um Werte für Algorithmus abzuspeichern
 uint32_t* daten = (uint32_t*) calloc(3*windowSize, sizeof(uint32_t));
 uint32_t sampleIndex = 0;
 #define uint32_t period 10 //when to take sample
 
 
-//uint32_t g_ui32ADCSampleBuffer[ADC_SAMPLE_BUF_SIZE];
-//uint32_t g_ui32ADCSampleIndex = 0;
 
 //*****************************************************************************
 //
