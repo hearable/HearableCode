@@ -161,11 +161,6 @@ main(void)
 #endif
 
     //
-    // Initialize plotting interface.
-    //
-    am_util_debug_printf("FreeRTOS Low Power Example\n");
-
-    //
     // Run the application.
     //
     run_tasks();
