@@ -124,7 +124,7 @@ adc_config(void)
     //
     sADCConfig.ui32Clock = AM_HAL_ADC_CLOCK_HFRC;
     sADCConfig.ui32TriggerConfig = AM_HAL_ADC_TRIGGER_SOFT;
-    sADCConfig.ui32Reference = AM_HAL_ADC_REF_INT_2P0;
+    sADCConfig.ui32Reference = AM_HAL_ADC_REF_INT_1P5;
     sADCConfig.ui32ClockMode = AM_HAL_ADC_CK_LOW_POWER;
     sADCConfig.ui32PowerMode = AM_HAL_ADC_LPMODE_0;
     sADCConfig.ui32Repeat = AM_HAL_ADC_REPEAT;
@@ -139,8 +139,8 @@ adc_config(void)
     //
     // Set up an ADC slot
     //
-    am_hal_adc_slot_config(0, AM_HAL_ADC_SLOT_AVG_128 |
-                              AM_HAL_ADC_SLOT_14BIT |
+    am_hal_adc_slot_config(0, AM_HAL_ADC_SLOT_AVG_1 |
+                              AM_HAL_ADC_SLOT_10BIT |
                               AM_HAL_ADC_SLOT_CHSEL_SE0 |
                               AM_HAL_ADC_SLOT_ENABLE);
     //
@@ -168,7 +168,7 @@ init_timerA3_for_ADC(void)
 		//(Interrupt)
     am_hal_ctimer_int_enable(AM_HAL_CTIMER_INT_TIMERA3);
 		//TimerNumber, TimerSegment, Period, OnTime
-    am_hal_ctimer_period_set(3, AM_HAL_CTIMER_TIMERA, period, 5);
+    am_hal_ctimer_period_set(3, AM_HAL_CTIMER_TIMERA, 1000, 500);
 
     //
     // Enable the timer A3 to trigger the ADC directly

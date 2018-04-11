@@ -31,6 +31,20 @@ volatile uint32_t* ADCArray;
 
 const int PWMPeriod = 1024;
 
+static SemaphoreHandle_t SemaphoreIntADC;
+static SemaphoreHandle_t SemaphoreADCT1;
+static SemaphoreHandle_t SemaphoreAlgT1;
+static SemaphoreHandle_t SemaphoreT1Alg;
+static SemaphoreHandle_t SemaphoreT2Alg;
+static SemaphoreHandle_t SemaphoreAlgT2;
+static SemaphoreHandle_t SemaphoreT2T1;
+static SemaphoreHandle_t SemaphoreT1T2;
+
+static TaskHandle_t xADCTask = NULL;
+static TaskHandle_t xT1Task = NULL;
+static TaskHandle_t xAlgorithmTask = NULL;
+static TaskHandle_t xT2Task = NULL;
+
 void
 am_ctimer_isr(void)
 {
@@ -49,10 +63,22 @@ am_ctimer_isr(void)
     am_hal_ctimer_int_service(ui32Status);
 }
 
+void
+am_adc_isr(void)
+{
+		// Variabeln auf 32 Bit festsetzen, Status ist interrupt status
+    uint32_t ui32Status;
+		//am_util_debug_printf("Interrupt! \n");
+
+    ui32Status = am_hal_adc_int_status_get(true);
+    am_hal_adc_int_clear(ui32Status);
+	
+		xSemaphoreGiveFromISR(SemaphoreIntADC, NULL);
+}
+
 void PWMInterrupt(void){
 
     am_hal_ctimer_period_set(2, AM_HAL_CTIMER_TIMERB, PWMPeriod, PWMArray[PWMIndex]);
-
     PWMIndex = (PWMIndex + 1) % windowSize;
 }
 
@@ -155,47 +181,38 @@ AlgorithmArguments Alg;
 T1Arguments T1;
 T2Arguments T2;
 		
-static TaskHandle_t xADCTask = NULL;
-static TaskHandle_t xT1Task = NULL;
-static TaskHandle_t xAlgorithmTask = NULL;
-static TaskHandle_t xT2Task = NULL;
-		
-static SemaphoreHandle_t SemaphoreT1ADC;
-static SemaphoreHandle_t SemaphoreADCT1;
-static SemaphoreHandle_t SemaphoreAlgT1;
-static SemaphoreHandle_t SemaphoreT1Alg;
-static SemaphoreHandle_t SemaphoreT2Alg;
-static SemaphoreHandle_t SemaphoreAlgT2;
-static SemaphoreHandle_t SemaphoreT2T1;
-static SemaphoreHandle_t SemaphoreT1T2;
-		
 void ADCTask(void* args){
+	uint32_t ui32FifoData;
 	am_util_debug_printf("ADC started!\n");
 	
 	int i = 0;
 	//am_util_debug_printf("ADC init done!\n");
-	xSemaphoreTake(SemaphoreT1ADC, portMAX_DELAY);
 	//am_util_debug_printf("Semaphore taken!\n");
 	for(;;){
-		ADCArray[i] = PWMPeriod/2;
-		/*
-		ACQUIRE DATA HERE
-		*/
-		i++;
-		if(i==windowSize || i==(2*windowSize) || i==(3*windowSize)){
-			i%=(3*windowSize);
-			//am_util_debug_printf("ADC done!\n");
-			xSemaphoreGive(SemaphoreADCT1);
-			vTaskResume(xT1Task);
-			vTaskDelay(32/portTICK_PERIOD_MS);
-			xSemaphoreTake(SemaphoreT1ADC, portMAX_DELAY);
-		}
-	}
-			
+		xSemaphoreTake(SemaphoreIntADC, portMAX_DELAY);
+		for(int i=0;i<12;i++)
+      {
+        ui32FifoData = am_hal_adc_fifo_pop();
+				//am_util_stdio_printf("%d \n", ((ui32FifoData)&0x0000FFC0)>>8);
+				ADCArray[ADCIndex] = (AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData)&0x0000FFC0)>>8;
+				//am_util_debug_printf("%d \n", ADCArray[ADCIndex]);
+				
+				if((ADCIndex+1)%windowSize == 0){
+					//am_util_debug_printf("Should start T1 now... \n");
+					xSemaphoreGive(SemaphoreADCT1);
+					vTaskResume(xT1Task);
+				}
+				
+				ADCIndex = (ADCIndex + 1) % (3*windowSize);
+				
+        //g_ui32ADCSampleBuffer[g_ui32ADCSampleIndex] = AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData);
+        //g_ui32ADCSampleIndex = (g_ui32ADCSampleIndex + 1) & ADC_SAMPLE_INDEX_M;
+      }
+	}		
 }
 
 void AlgorithmTask(void* args){
-	//am_util_debug_printf("Alg started!\n");
+	am_util_debug_printf("Alg started!\n");
 	AlgorithmArguments* xargs = (AlgorithmArguments*) args;
 	int i = 0;
 	
@@ -221,7 +238,7 @@ void AlgorithmTask(void* args){
 }
 
 void T1Task(void* args){
-	//am_util_debug_printf("Task1 started!\n");
+	am_util_debug_printf("T1 started!\n");
 	T1Arguments* xargs = (T1Arguments*) args;
 	int i = 0;
 	
@@ -235,7 +252,7 @@ void T1Task(void* args){
 		i++;
 		i%=3;
 		//am_util_debug_printf("T1 done!\n");
-		xSemaphoreGive(SemaphoreT1ADC);
+		//xSemaphoreGive(SemaphoreT1ADC);
 		xSemaphoreGive(SemaphoreT1Alg);
 		xSemaphoreGive(SemaphoreT1T2);
 		vTaskResume(xAlgorithmTask);
@@ -280,6 +297,80 @@ void T2Task(void* args){
 }*/
 
 void
+adc_config(void)
+{
+		// "Variabeln" deklaration, Datenstruktur benutzt um den ADC zu konfigurieren
+    am_hal_adc_config_t sADCConfig;
+
+    //
+    // Enable the ADC power domain.
+    //
+    am_hal_pwrctrl_periph_enable(AM_HAL_PWRCTRL_ADC);
+
+    //ADC CONFIGURATIONS
+    // Set up the ADC configuration parameters. These settings are reasonable
+    // for accurate measurements at a low sample rate.
+    //
+    sADCConfig.ui32Clock = AM_HAL_ADC_CLOCK_HFRC;
+    sADCConfig.ui32TriggerConfig = AM_HAL_ADC_TRIGGER_SOFT;
+    sADCConfig.ui32Reference = AM_HAL_ADC_REF_INT_1P5;
+    sADCConfig.ui32ClockMode = AM_HAL_ADC_CK_LOW_POWER;
+    sADCConfig.ui32PowerMode = AM_HAL_ADC_LPMODE_0;
+    sADCConfig.ui32Repeat = AM_HAL_ADC_REPEAT;
+    am_hal_adc_config(&sADCConfig);
+
+    // when to wake up
+    // For this example, the samples will be coming in slowly. This means we
+    // can afford to wake up for every conversion.
+    //
+    am_hal_adc_int_enable(AM_HAL_ADC_INT_FIFOOVR1);
+
+    //
+    // Set up an ADC slot
+    //
+    am_hal_adc_slot_config(0, AM_HAL_ADC_SLOT_AVG_1 |
+                              AM_HAL_ADC_SLOT_10BIT |
+                              AM_HAL_ADC_SLOT_CHSEL_SE0 |
+                              AM_HAL_ADC_SLOT_ENABLE);
+    //
+    // Enable the ADC.
+    //
+    am_hal_adc_enable();
+}
+
+//*****************************************************************************
+// TimeNumber of ADC needs to be 3, TimerSegment?
+// Initialize the ADC repetitive sample timer A3.
+//
+//*****************************************************************************
+void
+init_timerA3_for_ADC(void)
+{
+    //
+    // Start a timer to trigger the ADC periodically (1 second).
+    // (TimerNumber, TimerSegment, CifigVal)
+    am_hal_ctimer_config_single(3, AM_HAL_CTIMER_TIMERA,
+                                   AM_HAL_CTIMER_HFRC_12MHZ |
+                                   AM_HAL_CTIMER_FN_REPEAT |
+                                   AM_HAL_CTIMER_INT_ENABLE |
+                                   AM_HAL_CTIMER_PIN_ENABLE);
+		//(Interrupt)
+    am_hal_ctimer_int_enable(AM_HAL_CTIMER_INT_TIMERA3);
+		//TimerNumber, TimerSegment, Period, OnTime
+    am_hal_ctimer_period_set(3, AM_HAL_CTIMER_TIMERA, 999, 999);
+
+    //
+    // Enable the timer A3 to trigger the ADC directly
+    //
+    am_hal_ctimer_adc_trigger_enable();
+
+    //
+    // Start the timer (TimerNumber, TimerSegment)
+    //
+    am_hal_ctimer_start(3, AM_HAL_CTIMER_TIMERA);
+}
+
+void
 run_tasks(void)
 {
     //
@@ -288,6 +379,8 @@ run_tasks(void)
     // Note: Timer priority is handled by the FreeRTOS kernel, so we won't
     // touch it here.
     //
+	
+		am_hal_interrupt_priority_set(AM_HAL_INTERRUPT_ADC, 255);
 	
 		am_util_debug_printf("Starting Setup...\n");
 	
@@ -334,7 +427,7 @@ run_tasks(void)
 		// Initialization of T2
 		T2.AlgorithmPointer = Alg.currentResult;
 		
-		SemaphoreT1ADC = xSemaphoreCreateBinary();
+		SemaphoreIntADC = xSemaphoreCreateBinary();
 		SemaphoreADCT1 = xSemaphoreCreateBinary();
 		SemaphoreAlgT1 = xSemaphoreCreateBinary();
 		SemaphoreT1Alg = xSemaphoreCreateBinary();
@@ -343,24 +436,22 @@ run_tasks(void)
 		SemaphoreT2T1 = xSemaphoreCreateBinary();
 		SemaphoreT1T2 = xSemaphoreCreateBinary();
 		
-		xSemaphoreGive(SemaphoreT1ADC);
 		xSemaphoreGive(SemaphoreAlgT1);
 		xSemaphoreGive(SemaphoreT2Alg);
 		xSemaphoreGive(SemaphoreT2T1);
 
 		BaseType_t returnvalue;
 
-    xTaskCreate( ADCTask, "ADCTask", windowSize*5*sizeof(float), NULL, 0, &xADCTask );
+    xTaskCreate( ADCTask, "ADCTask", windowSize*5*sizeof(float), NULL, 4, &xADCTask );
 		xTaskCreate( T1Task, "T1Task", windowSize*2*sizeof(float), &T1, 2, &xT1Task );
 		xTaskCreate( AlgorithmTask, "AlgorithmTask", windowSize*15*sizeof(float), &Alg, 0, &xAlgorithmTask );
 		xTaskCreate( T2Task, "T2Task", windowSize*2*sizeof(float), &T2, 3, &xT2Task );
-		
-		am_util_debug_printf("Tasks started\n");
 		
 		//am_hal_stimer_config(AM_HAL_STIMER_CFG_CLEAR | AM_HAL_STIMER_CFG_FREEZE);
     //am_hal_stimer_config(AM_HAL_STIMER_XTAL_32KHZ);
 		
 		am_hal_gpio_pin_config(AM_BSP_GPIO_LED3, AM_HAL_PIN_30_TCTB2);
+		am_hal_gpio_pin_config(16, AM_HAL_PIN_16_ADCSE0);
 		
 		// PWM Interrupt Setup
 		am_hal_ctimer_config_single(2, AM_HAL_CTIMER_TIMERB,
@@ -369,21 +460,28 @@ run_tasks(void)
                                  AM_HAL_CTIMER_INT_ENABLE |
                                  AM_HAL_CTIMER_PIN_ENABLE));
 
-
-    am_hal_ctimer_period_set(2, AM_HAL_CTIMER_TIMERB, PWMPeriod, PWMPeriod-1);
-
-		am_hal_ctimer_int_register(AM_HAL_CTIMER_INT_TIMERB2, PWMInterrupt);
 		
+    am_hal_ctimer_period_set(2, AM_HAL_CTIMER_TIMERB, PWMPeriod, PWMPeriod-1);
+		am_hal_ctimer_int_register(AM_HAL_CTIMER_INT_TIMERB2, PWMInterrupt);
     am_hal_ctimer_int_enable(AM_HAL_CTIMER_INT_TIMERB2);
+		
+		init_timerA3_for_ADC();
+		adc_config();
+		am_hal_adc_trigger();
+		
+		// Enable global interrupts
+		am_hal_interrupt_enable(AM_HAL_INTERRUPT_ADC);
     am_hal_interrupt_enable(AM_HAL_INTERRUPT_CTIMER);
     am_hal_interrupt_master_enable();
-		//am_hal_interrupt_master_disable();
 
+		// Start timers for both PWM and ADC
     am_hal_ctimer_start(2, AM_HAL_CTIMER_TIMERB);
+		am_hal_ctimer_start(3, AM_HAL_CTIMER_TIMERA);
 		
 		vTaskSuspend(xT1Task);
 		vTaskSuspend(xT2Task);
 		vTaskSuspend(xAlgorithmTask);
+		am_util_debug_printf("Tasks started\n");
 	
     vTaskStartScheduler();
 		
