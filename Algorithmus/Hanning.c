@@ -57,15 +57,15 @@ float* HanningWindow(int windowSize, HanningPeriodicity periodicity){
 // the part of the sum which you're after -> HEAD, MID, TAIL
 float* ReturnWindowOutputHanning(int windowSize, float overlapPercentage, float* overlapAddResult, OverlapPart part){
     float* returnValue = calloc(windowSize, sizeof(float));;
-    int overlapIndex = (int)((windowSize+1)*(1-overlapPercentage));
+    int overlapIndex = (int)((windowSize)*(1-overlapPercentage));
     switch(part){
         case(HEAD):
-            for(int i=overlapIndex;i<2*overlapIndex;i++){
+            for(int i=overlapIndex;i<windowSize;i++){
                 returnValue[i-overlapIndex] = overlapAddResult[i];
             }
         break;
         case(MID):
-            for(int i=overlapIndex;i<windowSize+1;i++){
+            for(int i=overlapIndex;i<windowSize;i++){
                 returnValue[i-overlapIndex] = overlapAddResult[i];
             }
         break;
@@ -81,7 +81,7 @@ float* ReturnWindowOutputHanning(int windowSize, float overlapPercentage, float*
 // Applies the overlap-Add method to Hanning windowed-STFT
 float* OverlapAddHanning(int windowSize, float overlapPercentage, float* currentWindowRe, float* previousWindowRe){
     float* returnValue;
-    int overlapIndex = (int)((windowSize+1)*(1-overlapPercentage));
+    int overlapIndex = (int)((windowSize)*(1.0f-overlapPercentage));
 
     returnValue = (float*) calloc(windowSize+overlapIndex, sizeof(float));
 
