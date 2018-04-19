@@ -21,16 +21,20 @@
 	#define PI 3.14159265359
 #endif
 
-const int windowSize = 64;
+const int windowSize = 512;
 
+// PWMIndex and PWMArray are used for data exchange between the Algorithm and the PWM generator
 volatile uint32_t PWMIndex;
 volatile uint32_t* PWMArray;
 
+// ADCIndex and ADCArray are used for data exchange between the Algorithm and the ADC
 volatile uint32_t ADCIndex;
 volatile uint32_t* ADCArray;
 
-const int PWMPeriod = 1024;
+const int PWMPeriod = 256; 
+const int ADCPeriod = 1024;
 
+// For documentation on how the semaphores are used, please see the corresponding scheme
 static SemaphoreHandle_t SemaphoreIntADC;
 static SemaphoreHandle_t SemaphoreADCT1;
 static SemaphoreHandle_t SemaphoreAlgT1;
@@ -66,7 +70,6 @@ am_ctimer_isr(void)
 void
 am_adc_isr(void)
 {
-		// Variabeln auf 32 Bit festsetzen, Status ist interrupt status
     uint32_t ui32Status;
 		//am_util_debug_printf("Interrupt! \n");
 
@@ -76,32 +79,19 @@ am_adc_isr(void)
 		xSemaphoreGiveFromISR(SemaphoreIntADC, NULL);
 }
 
-void PWMInterrupt(void){
-
+void PWMInterrupt(void){ // This is called if the timer associated with PWM generation causes an interrupt
+		
     am_hal_ctimer_period_set(2, AM_HAL_CTIMER_TIMERB, PWMPeriod, PWMArray[PWMIndex]);
-    PWMIndex = (PWMIndex + 1) % windowSize;
+		//am_util_debug_printf("%u \n",PWMArray[PWMIndex]);
+    PWMIndex = (PWMIndex + 1) % (4*windowSize);
 }
 
-//*****************************************************************************
-//
-// Sleep function called from FreeRTOS IDLE task.
-// Do necessary application specific Power down operations here
-// Return 0 if this function also incorporates the WFI, else return value same
-// as idleTime
-//
-//*****************************************************************************
 uint32_t am_freertos_sleep(uint32_t idleTime)
 {
     am_hal_sysctrl_sleep(AM_HAL_SYSCTRL_SLEEP_DEEP);
     return 0;
 }
 
-//*****************************************************************************
-//
-// Recovery function called from FreeRTOS IDLE task, after waking up from Sleep
-// Do necessary 'wakeup' operations here, e.g. to power up/enable peripherals etc.
-//
-//*****************************************************************************
 void am_freertos_wakeup(uint32_t idleTime)
 {
     return;
@@ -116,13 +106,6 @@ void am_freertos_wakeup(uint32_t idleTime)
 void
 vApplicationMallocFailedHook(void)
 {
-    //
-    // Called if a call to pvPortMalloc() fails because there is insufficient
-    // free memory available in the FreeRTOS heap.  pvPortMalloc() is called
-    // internally by FreeRTOS API functions that create tasks, queues, software
-    // timers, and semaphores.  The size of the FreeRTOS heap is set by the
-    // configTOTAL_HEAP_SIZE configuration constant in FreeRTOSConfig.h.
-    //
     while (1);
 }
 
@@ -132,22 +115,11 @@ vApplicationStackOverflowHook(TaskHandle_t pxTask, char *pcTaskName)
     (void) pcTaskName;
     (void) pxTask;
 
-    //
-    // Run time stack overflow checking is performed if
-    // configconfigCHECK_FOR_STACK_OVERFLOW is defined to 1 or 2.  This hook
-    // function is called if a stack overflow is detected.
-    //
     while (1)
     {
         __asm("BKPT #0\n") ; // Break into the debugger
     }
 }
-
-//*****************************************************************************
-//
-// Initializes all tasks
-//
-//*****************************************************************************
 
 typedef struct T1Arguments{
 	float* AlgorithmPointer;
@@ -157,7 +129,7 @@ typedef struct T2Arguments{
 	float* AlgorithmPointer;
 } T2Arguments;
 		
-typedef struct AlgorithmArguments{
+typedef struct AlgorithmArguments{ // All data storage which is used in the algorithm is statically allocated to facilitate the control of stack/heap size
 	float* currentWindowRe;
 	float* currentWindowIm;
 	float* currentOutput;
@@ -184,8 +156,7 @@ T2Arguments T2;
 void ADCTask(void* args){
 	uint32_t ui32FifoData;
 	am_util_debug_printf("ADC started!\n");
-	
-	int i = 0;
+
 	//am_util_debug_printf("ADC init done!\n");
 	//am_util_debug_printf("Semaphore taken!\n");
 	for(;;){
@@ -193,8 +164,8 @@ void ADCTask(void* args){
 		for(int i=0;i<12;i++)
       {
         ui32FifoData = am_hal_adc_fifo_pop();
-				//am_util_stdio_printf("%d \n", ((ui32FifoData)&0x0000FFC0)>>8);
-				ADCArray[ADCIndex] = (AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData)&0x0000FFC0)>>8;
+				//am_util_stdio_printf("%d \n", ((ui32FifoData)&0x0000FFC0)>>6);
+				ADCArray[ADCIndex] = ((AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData))&0x00003FC0)>>6; // 8Bit Mask
 				//am_util_debug_printf("%d \n", ADCArray[ADCIndex]);
 				
 				if((ADCIndex+1)%windowSize == 0){
@@ -214,18 +185,18 @@ void ADCTask(void* args){
 void AlgorithmTask(void* args){
 	am_util_debug_printf("Alg started!\n");
 	AlgorithmArguments* xargs = (AlgorithmArguments*) args;
-	int i = 0;
 	
 	for(;;){
 		xSemaphoreTake(SemaphoreT1Alg, portMAX_DELAY);
 		xSemaphoreTake(SemaphoreT2Alg, portMAX_DELAY);
 		//am_hal_stimer_counter_clear();
+		// For reference on what ProcessData_tweaked does, refer to Utils.h
 		ProcessData_tweaked(windowSize, 0.5f, xargs->sampleFrequency, xargs->shiftFrequency,
                     xargs->lowpassFilter, xargs->hanningWindow, xargs->sinTable, xargs->cosTable, xargs->previousWindowRe, xargs->previousWindowIm,
                     xargs->currentWindowRe, xargs->currentWindowIm, xargs->currentSample, xargs->shiftVector, xargs->currentOutput);
 		ReturnWindowOutputHanning(windowSize, 0.5f, xargs->currentOutput, MID, xargs->currentResult);
 		for(int i=0;i<windowSize/2;i++){
-			xargs->currentResult[i] = ((PWMPeriod/2) + (xargs->currentResult[i]/2));
+			xargs->currentResult[i] = ((PWMPeriod/2) + (xargs->currentResult[i]/(2.1f))); // Dividing by 2.1f to be sure to never get 0 or PWMPeriod. Those values don't work well with PWM generation. Only affects Amplitude
 			//am_util_debug_printf("%f \n",xargs->currentResult[i]);
 		}
 		//am_util_debug_printf("Alg done!\n");
@@ -240,19 +211,20 @@ void AlgorithmTask(void* args){
 void T1Task(void* args){
 	am_util_debug_printf("T1 started!\n");
 	T1Arguments* xargs = (T1Arguments*) args;
-	int i = 0;
+	int i = 0; // The ADCArray has storage space for 3 windowSizes of data. Therefore, i is used to calculate which data segment is next to be used.
 	
 	for(;;){
 		xSemaphoreTake(SemaphoreADCT1, portMAX_DELAY);
 		xSemaphoreTake(SemaphoreAlgT1, portMAX_DELAY);
 		xSemaphoreTake(SemaphoreT2T1, portMAX_DELAY);
+		taskENTER_CRITICAL(); // Make sure the data is transfered completely
 		for(int j=0;j<windowSize;j++){
 			xargs->AlgorithmPointer[j] = ADCArray[(i*windowSize)+j];
 		}
 		i++;
 		i%=3;
+		taskEXIT_CRITICAL();
 		//am_util_debug_printf("T1 done!\n");
-		//xSemaphoreGive(SemaphoreT1ADC);
 		xSemaphoreGive(SemaphoreT1Alg);
 		xSemaphoreGive(SemaphoreT1T2);
 		vTaskResume(xAlgorithmTask);
@@ -262,16 +234,21 @@ void T1Task(void* args){
 
 void T2Task(void* args){
 	T2Arguments* xargs = (T2Arguments*) args;
-	int i = 0;
+	int i = 0; // PWMArray has storage space for 2 windowSizes of data. This allows for smooth operation. 
 	
 	for(;;){
 		xSemaphoreTake(SemaphoreAlgT2, portMAX_DELAY);
 		xSemaphoreTake(SemaphoreT1T2, portMAX_DELAY);
-		for(int j=0;j<windowSize/2;j++){
-			PWMArray[(i*windowSize/2)+j] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
+		taskENTER_CRITICAL(); // Make sure the data is transfered completely
+		for(int j=0;j<windowSize/2;j++){ // Each data point is quadrupled. This allows for a higher PWM modulation frequency which isn't audible. (Kind of a hack, since the 48Mhz Clock isn't available on timers)
+			PWMArray[(i*2*windowSize)+((4*j))] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
+			PWMArray[(i*2*windowSize)+((4*j)+1)] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
+			PWMArray[(i*2*windowSize)+((4*j)+2)] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
+			PWMArray[(i*2*windowSize)+((4*j)+3)] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
 		}
 		i++;
 		i%=2;
+		taskEXIT_CRITICAL();
 		//am_util_debug_printf("T2 done!\n");
 		xSemaphoreGive(SemaphoreT2Alg);
 		xSemaphoreGive(SemaphoreT2T1);
@@ -279,38 +256,14 @@ void T2Task(void* args){
 	}
 }
 
-/*void PWMTask(void* args){
-	PWMArguments* xargs = (PWMArguments*) args;
-	int i = 0;
-	
-	for(;;){
-		xSemaphoreTake(SemaphoreT2PWM, portMAX_DELAY);
-		for(int j=0;j<windowSize/2;j++){
-			//am_util_debug_printf("%f \n",xargs->dataArray[j+(i*(windowSize)/2)]);
-		}
-		i++;
-		i%=2;
-		//am_util_debug_printf("PWM done\n");
-		xSemaphoreGive(SemaphorePWMT2);
-		vTaskSuspend(NULL);
-	}
-}*/
-
+// The ADC is set to operate on signals from 0-1.5V
 void
 adc_config(void)
 {
-		// "Variabeln" deklaration, Datenstruktur benutzt um den ADC zu konfigurieren
     am_hal_adc_config_t sADCConfig;
 
-    //
-    // Enable the ADC power domain.
-    //
     am_hal_pwrctrl_periph_enable(AM_HAL_PWRCTRL_ADC);
 
-    //ADC CONFIGURATIONS
-    // Set up the ADC configuration parameters. These settings are reasonable
-    // for accurate measurements at a low sample rate.
-    //
     sADCConfig.ui32Clock = AM_HAL_ADC_CLOCK_HFRC;
     sADCConfig.ui32TriggerConfig = AM_HAL_ADC_TRIGGER_SOFT;
     sADCConfig.ui32Reference = AM_HAL_ADC_REF_INT_1P5;
@@ -319,45 +272,29 @@ adc_config(void)
     sADCConfig.ui32Repeat = AM_HAL_ADC_REPEAT;
     am_hal_adc_config(&sADCConfig);
 
-    // when to wake up
-    // For this example, the samples will be coming in slowly. This means we
-    // can afford to wake up for every conversion.
-    //
     am_hal_adc_int_enable(AM_HAL_ADC_INT_FIFOOVR1);
 
-    //
-    // Set up an ADC slot
-    //
     am_hal_adc_slot_config(0, AM_HAL_ADC_SLOT_AVG_1 |
-                              AM_HAL_ADC_SLOT_10BIT |
+															AM_HAL_ADC_SLOT_8BIT |
                               AM_HAL_ADC_SLOT_CHSEL_SE0 |
                               AM_HAL_ADC_SLOT_ENABLE);
-    //
-    // Enable the ADC.
-    //
+
     am_hal_adc_enable();
 }
 
-//*****************************************************************************
-// TimeNumber of ADC needs to be 3, TimerSegment?
-// Initialize the ADC repetitive sample timer A3.
-//
-//*****************************************************************************
 void
 init_timerA3_for_ADC(void)
 {
-    //
-    // Start a timer to trigger the ADC periodically (1 second).
-    // (TimerNumber, TimerSegment, CifigVal)
+
     am_hal_ctimer_config_single(3, AM_HAL_CTIMER_TIMERA,
                                    AM_HAL_CTIMER_HFRC_12MHZ |
                                    AM_HAL_CTIMER_FN_REPEAT |
                                    AM_HAL_CTIMER_INT_ENABLE |
                                    AM_HAL_CTIMER_PIN_ENABLE);
-		//(Interrupt)
+
     am_hal_ctimer_int_enable(AM_HAL_CTIMER_INT_TIMERA3);
 		//TimerNumber, TimerSegment, Period, OnTime
-    am_hal_ctimer_period_set(3, AM_HAL_CTIMER_TIMERA, 999, 999);
+    am_hal_ctimer_period_set(3, AM_HAL_CTIMER_TIMERA, ADCPeriod, ADCPeriod-1);
 
     //
     // Enable the timer A3 to trigger the ADC directly
@@ -373,20 +310,14 @@ init_timerA3_for_ADC(void)
 void
 run_tasks(void)
 {
-    //
-    // Set some interrupt priorities before we create tasks or start the scheduler.
-    //
-    // Note: Timer priority is handled by the FreeRTOS kernel, so we won't
-    // touch it here.
-    //
-	
-		am_hal_interrupt_priority_set(AM_HAL_INTERRUPT_ADC, 255);
-	
 		am_util_debug_printf("Starting Setup...\n");
 	
+		am_hal_interrupt_priority_set(AM_HAL_INTERRUPT_ADC, 254);
+		am_hal_interrupt_priority_set(AM_HAL_INTERRUPT_CTIMER, 255);
+	
 		PWMIndex = 0;
-		PWMArray= (uint32_t*) calloc(windowSize, sizeof(uint32_t));
-		for(int i=0;i<windowSize;i++){
+		PWMArray= (uint32_t*) calloc(4*windowSize, sizeof(uint32_t));
+		for(int i=0;i<4*windowSize;i++){
 			PWMArray[i] = PWMPeriod-1;
 		}
 
@@ -404,9 +335,9 @@ run_tasks(void)
 		Alg.currentOutput = calloc(2*windowSize, sizeof(float));
 		Alg.currentResult = calloc(windowSize, sizeof(float));
 		Alg.sampleFrequency = 12000.0f;
-		Alg.shiftFrequency = 400.0f;
+		Alg.shiftFrequency = 0.0f;
 		Alg.cutOffFrequency = 4000.0f;
-		Alg.lowpassRolloff = 6;
+		Alg.lowpassRolloff = 4;
 		Alg.sinTable = (float*) calloc(windowSize/2, sizeof(float));
 		Alg.cosTable = (float*) calloc(windowSize/2, sizeof(float));
 		
@@ -440,15 +371,10 @@ run_tasks(void)
 		xSemaphoreGive(SemaphoreT2Alg);
 		xSemaphoreGive(SemaphoreT2T1);
 
-		BaseType_t returnvalue;
-
-    xTaskCreate( ADCTask, "ADCTask", windowSize*5*sizeof(float), NULL, 4, &xADCTask );
-		xTaskCreate( T1Task, "T1Task", windowSize*2*sizeof(float), &T1, 2, &xT1Task );
-		xTaskCreate( AlgorithmTask, "AlgorithmTask", windowSize*15*sizeof(float), &Alg, 0, &xAlgorithmTask );
-		xTaskCreate( T2Task, "T2Task", windowSize*2*sizeof(float), &T2, 3, &xT2Task );
-		
-		//am_hal_stimer_config(AM_HAL_STIMER_CFG_CLEAR | AM_HAL_STIMER_CFG_FREEZE);
-    //am_hal_stimer_config(AM_HAL_STIMER_XTAL_32KHZ);
+    xTaskCreate( ADCTask, "ADCTask", 400, NULL, 4, &xADCTask );
+		xTaskCreate( T1Task, "T1Task", 400, &T1, 2, &xT1Task );
+		xTaskCreate( AlgorithmTask, "AlgorithmTask", 400, &Alg, 0, &xAlgorithmTask );
+		xTaskCreate( T2Task, "T2Task", 400, &T2, 3, &xT2Task );
 		
 		am_hal_gpio_pin_config(AM_BSP_GPIO_LED3, AM_HAL_PIN_30_TCTB2);
 		am_hal_gpio_pin_config(16, AM_HAL_PIN_16_ADCSE0);
@@ -456,7 +382,7 @@ run_tasks(void)
 		// PWM Interrupt Setup
 		am_hal_ctimer_config_single(2, AM_HAL_CTIMER_TIMERB,
                                 (AM_HAL_CTIMER_FN_PWM_REPEAT |
-                                 AM_HAL_CTIMER_HFRC_12MHZ |
+																 AM_HAL_CTIMER_HFRC_12MHZ |
                                  AM_HAL_CTIMER_INT_ENABLE |
                                  AM_HAL_CTIMER_PIN_ENABLE));
 

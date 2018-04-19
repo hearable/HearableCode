@@ -11,7 +11,7 @@ void CyclicForwardShift(float* spectrumRe, float* spectrumIm, int windowSize, fl
 // Same as multiplying a function in time by e^(2*pi*i*(shiftFrequency/sampleFrequency))
 void CyclicBackwardShift(float* spectrumRe, float* spectrumIm, int windowSize, float sampleFrequency, float shiftFrequency);
 
-// Effectively shift frequencies by a constant frequency
+// Effectively shift frequencies forward by a constant frequency
 void CyclicCosineForwardShift(float* spectrumRe, float* spectrumIm, int windowSize, float sampleFrequency, float shiftFrequency);
 
 // Same as multiplying a function in time by cos(-2*pi*i*(shiftFrequency/sampleFrequency))

@@ -1,5 +1,5 @@
 Dependencies for Project 'IntegrationTest', Target 'IntegrationTest': (DO NOT MODIFY !)
-F (../../MCU/third_party/FreeRTOS9/Source/portable/MemMang/heap_2.c)(0x5AB558FD)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\heap_2.o --omf_browse .\bin\heap_2.crf --depend .\bin\heap_2.d)
+F (../../MCU/third_party/FreeRTOS9/Source/portable/MemMang/heap_2.c)(0x5AB558FD)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\heap_2.o --omf_browse .\bin\heap_2.crf --depend .\bin\heap_2.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (./RTOS/include/FreeRTOS.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
@@ -12,7 +12,7 @@ I (./RTOS/portable/KEIL/AMApollo2/portmacro.h)(0x5ACE3249)
 I (./RTOS/include/mpu_wrappers.h)(0x5ACE3249)
 I (./RTOS/include/task.h)(0x5ACE3249)
 I (./RTOS/include/list.h)(0x5ACE3249)
-F (IntegrationTest.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\integrationtest.o --omf_browse .\bin\integrationtest.crf --depend .\bin\integrationtest.d)
+F (IntegrationTest.c)(0x5AD78F4C)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\integrationtest.o --omf_browse .\bin\integrationtest.crf --depend .\bin\integrationtest.d)
 I (IntegrationTest.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
@@ -102,7 +102,7 @@ I (./RTOS/include/event_groups.h)(0x5ACE3249)
 I (./RTOS/include/timers.h)(0x5ACE3249)
 I (led_task.h)(0x5ACE3249)
 I (rtos.h)(0x5ACE3249)
-F (rtos.c)(0x5ACE46AC)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\rtos.o --omf_browse .\bin\rtos.crf --depend .\bin\rtos.d)
+F (rtos.c)(0x5AD8555E)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\rtos.o --omf_browse .\bin\rtos.crf --depend .\bin\rtos.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
 I (../../MCU/mcu/apollo2/am_mcu_apollo.h)(0x5AB558FD)
@@ -196,17 +196,17 @@ I (led_task.h)(0x5ACE3249)
 I (semphr.h)(0x5ACE3249)
 I (./Algorithmus/Utils.h)(0x5ACE3249)
 I (./Algorithmus/Hanning.h)(0x5ACE3249)
-I (./Algorithmus/CyclicShift.h)(0x5ACE3249)
+I (./Algorithmus/CyclicShift.h)(0x5AD79059)
 I (./Algorithmus/Lowpass.h)(0x5ACE3249)
-F (../../MCU/utils/am_util_debug.c)(0x5AB558FF)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\am_util_debug.o --omf_browse .\bin\am_util_debug.crf --depend .\bin\am_util_debug.d)
+F (../../MCU/utils/am_util_debug.c)(0x5AB558FF)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\am_util_debug.o --omf_browse .\bin\am_util_debug.crf --depend .\bin\am_util_debug.d)
 I (..\..\MCU\utils\am_util_debug.h)(0x5AB558FF)
-F (../../MCU/utils/am_util_delay.c)(0x5AB558FF)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\am_util_delay.o --omf_browse .\bin\am_util_delay.crf --depend .\bin\am_util_delay.d)
+F (../../MCU/utils/am_util_delay.c)(0x5AB558FF)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\am_util_delay.o --omf_browse .\bin\am_util_delay.crf --depend .\bin\am_util_delay.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
 I (../../MCU/mcu/apollo2/hal/am_hal_clkgen.h)(0x5AB558FD)
 I (../../MCU/mcu/apollo2/hal/am_hal_flash.h)(0x5AB558FD)
 I (../../MCU/utils/am_util_delay.h)(0x5AB558FF)
-F (../../MCU/utils/am_util_faultisr.c)(0x5AB558FF)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\am_util_faultisr.o --omf_browse .\bin\am_util_faultisr.crf --depend .\bin\am_util_faultisr.d)
+F (../../MCU/utils/am_util_faultisr.c)(0x5AB558FF)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\am_util_faultisr.o --omf_browse .\bin\am_util_faultisr.crf --depend .\bin\am_util_faultisr.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
 I (../../MCU/mcu/apollo2/am_mcu_apollo.h)(0x5AB558FD)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x599F2F9A)
@@ -264,19 +264,19 @@ I (../../MCU/mcu/apollo2/hal/am_hal_tpiu.h)(0x5AB558FD)
 I (../../MCU/mcu/apollo2/hal/am_hal_uart.h)(0x5AB558FD)
 I (../../MCU/mcu/apollo2/hal/am_hal_vcomp.h)(0x5AB558FD)
 I (../../MCU/mcu/apollo2/hal/am_hal_wdt.h)(0x5AB558FD)
-F (../../MCU/utils/am_util_stdio.c)(0x5AB558FF)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\am_util_stdio.o --omf_browse .\bin\am_util_stdio.crf --depend .\bin\am_util_stdio.d)
+F (../../MCU/utils/am_util_stdio.c)(0x5AB558FF)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\am_util_stdio.o --omf_browse .\bin\am_util_stdio.crf --depend .\bin\am_util_stdio.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x599F2F9A)
 I (../../MCU/utils/am_util_stdio.h)(0x5AB558FF)
-F (startup_keil.s)(0x5ACE3249)(--cpu Cortex-M4.fp --apcs=interwork -I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 525" --pd "APOLLO2_1024 SETA 1"--list .\listings\startup_keil.lst --xref -o .\bin\startup_keil.o --depend .\bin\startup_keil.d)
+F (startup_keil.s)(0x5ACE6E5D)(--cpu Cortex-M4.fp --apcs=interwork -I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 525" --pd "APOLLO2_1024 SETA 1"--list .\listings\startup_keil.lst --xref -o .\bin\startup_keil.o --depend .\bin\startup_keil.d)
 F (../../MCU/bsp/keil/bin/libam_bsp.lib)(0x5ACE31F3)()
 F (../../MCU/mcu/apollo2/hal/keil/bin/libam_hal.lib)(0x5ACE31F3)()
 F (./RTOS/include/FreeRTOSConfig.h)(0x5ACE418B)()
 F (.\RTOS\include\StackMacros.h)(0x5ACE3249)()
 F (.\RTOS\include\FreeRTOS.h)(0x5ACE3249)()
 F (.\RTOS\portable\Keil\AMapollo2\portmacro.h)(0x5ACE3249)()
-F (.\RTOS\portable\Keil\AMapollo2\port.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\port.o --omf_browse .\bin\port.crf --depend .\bin\port.d)
+F (.\RTOS\portable\Keil\AMapollo2\port.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\port.o --omf_browse .\bin\port.crf --depend .\bin\port.d)
 I (./RTOS/include/FreeRTOS.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
@@ -351,7 +351,7 @@ I (../../MCU/devices/am_devices_em9304.h)(0x5AB558FC)
 I (../../MCU/devices/am_devices_led.h)(0x5AB558FC)
 I (../../MCU/devices/am_devices_spiflash.h)(0x5AB558FC)
 I (../../MCU/bsp/am_bsp_gpio.h)(0x5AB8D6AA)
-F (.\RTOS\event_groups.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\event_groups.o --omf_browse .\bin\event_groups.crf --depend .\bin\event_groups.d)
+F (.\RTOS\event_groups.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\event_groups.o --omf_browse .\bin\event_groups.crf --depend .\bin\event_groups.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (./RTOS/include/FreeRTOS.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
@@ -366,7 +366,7 @@ I (./RTOS/include/task.h)(0x5ACE3249)
 I (./RTOS/include/list.h)(0x5ACE3249)
 I (./RTOS/include/timers.h)(0x5ACE3249)
 I (./RTOS/include/event_groups.h)(0x5ACE3249)
-F (.\RTOS\list.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\list.o --omf_browse .\bin\list.crf --depend .\bin\list.d)
+F (.\RTOS\list.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\list.o --omf_browse .\bin\list.crf --depend .\bin\list.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (./RTOS/include/FreeRTOS.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
@@ -378,7 +378,7 @@ I (./RTOS/include/deprecated_definitions.h)(0x5ACE3249)
 I (./RTOS/portable/KEIL/AMApollo2/portmacro.h)(0x5ACE3249)
 I (./RTOS/include/mpu_wrappers.h)(0x5ACE3249)
 I (./RTOS/include/list.h)(0x5ACE3249)
-F (.\RTOS\queue.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\queue.o --omf_browse .\bin\queue.crf --depend .\bin\queue.d)
+F (.\RTOS\queue.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\queue.o --omf_browse .\bin\queue.crf --depend .\bin\queue.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F2F9C)
 I (./RTOS/include/FreeRTOS.h)(0x5ACE3249)
@@ -393,7 +393,7 @@ I (./RTOS/include/mpu_wrappers.h)(0x5ACE3249)
 I (./RTOS/include/task.h)(0x5ACE3249)
 I (./RTOS/include/list.h)(0x5ACE3249)
 I (./RTOS/include/queue.h)(0x5ACE3249)
-F (.\RTOS\tasks.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\tasks.o --omf_browse .\bin\tasks.crf --depend .\bin\tasks.d)
+F (.\RTOS\tasks.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\tasks.o --omf_browse .\bin\tasks.crf --depend .\bin\tasks.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F2F9C)
 I (./RTOS/include/FreeRTOS.h)(0x5ACE3249)
@@ -409,7 +409,7 @@ I (./RTOS/include/task.h)(0x5ACE3249)
 I (./RTOS/include/list.h)(0x5ACE3249)
 I (./RTOS/include/timers.h)(0x5ACE3249)
 I (./RTOS/include/stack_macros.h)(0x5ACE3249)
-F (.\RTOS\timers.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\timers.o --omf_browse .\bin\timers.crf --depend .\bin\timers.d)
+F (.\RTOS\timers.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\timers.o --omf_browse .\bin\timers.crf --depend .\bin\timers.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (./RTOS/include/FreeRTOS.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
@@ -424,15 +424,15 @@ I (./RTOS/include/task.h)(0x5ACE3249)
 I (./RTOS/include/list.h)(0x5ACE3249)
 I (./RTOS/include/queue.h)(0x5ACE3249)
 I (./RTOS/include/timers.h)(0x5ACE3249)
-F (.\Algorithmus\BlackmanNuttall.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\blackmannuttall.o --omf_browse .\bin\blackmannuttall.crf --depend .\bin\blackmannuttall.d)
+F (.\Algorithmus\BlackmanNuttall.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\blackmannuttall.o --omf_browse .\bin\blackmannuttall.crf --depend .\bin\blackmannuttall.d)
 I (Algorithmus\BlackmanNutall.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599F2F9E)
-F (.\Algorithmus\CyclicShift.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\cyclicshift.o --omf_browse .\bin\cyclicshift.crf --depend .\bin\cyclicshift.d)
-I (Algorithmus\CyclicShift.h)(0x5ACE3249)
+F (.\Algorithmus\CyclicShift.c)(0x5AD78FC7)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\cyclicshift.o --omf_browse .\bin\cyclicshift.crf --depend .\bin\cyclicshift.d)
+I (Algorithmus\CyclicShift.h)(0x5AD79059)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599F2F9E)
-F (.\Algorithmus\FFT.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\fft.o --omf_browse .\bin\fft.crf --depend .\bin\fft.d)
+F (.\Algorithmus\FFT.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\fft.o --omf_browse .\bin\fft.crf --depend .\bin\fft.d)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599F2F9E)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
@@ -440,17 +440,17 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F2F9C)
 I (Algorithmus\FFT.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
-F (.\Algorithmus\Hanning.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\hanning.o --omf_browse .\bin\hanning.crf --depend .\bin\hanning.d)
+F (.\Algorithmus\Hanning.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\hanning.o --omf_browse .\bin\hanning.crf --depend .\bin\hanning.d)
 I (Algorithmus\Hanning.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599F2F9E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
-F (.\Algorithmus\Lowpass.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\lowpass.o --omf_browse .\bin\lowpass.crf --depend .\bin\lowpass.d)
+F (.\Algorithmus\Lowpass.c)(0x5AD78FEA)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\lowpass.o --omf_browse .\bin\lowpass.crf --depend .\bin\lowpass.d)
 I (Algorithmus\Lowpass.h)(0x5ACE3249)
 I (Algorithmus\Hanning.h)(0x5ACE3249)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
-F (.\Algorithmus\Utils.c)(0x5ACE3249)(--c99 -c --cpu Cortex-M4.fp -O0 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\utils.o --omf_browse .\bin\utils.crf --depend .\bin\utils.d)
+F (.\Algorithmus\Utils.c)(0x5AD78FF9)(--c99 -c --cpu Cortex-M4.fp -O3 -Otime --apcs=interwork --split_sections -I ../../MCU/bsp -I ../../MCU/utils -I ../../MCU/devices -I ../../MCU/mcu/apollo2 -I ./RTOS/include -I ./RTOS/portable/KEIL/AMApollo2 -I ./Algorithmus/-I.\RTE\_IntegrationTest-IC:\Keil_v5\ARM\PACK\AmbiqMicro\Apollo_DFP\1.0.0\Device\Include-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="525" -DAPOLLO2_1024 -DAM_PACKAGE_BGA -DAM_DEBUG_PRINTF -DAM_PART_APOLLO2 -DAM_FREERTOS -Dkeil-o .\bin\utils.o --omf_browse .\bin\utils.crf --depend .\bin\utils.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599F2F9C)
 I (Algorithmus\Hanning.h)(0x5ACE3249)
@@ -459,7 +459,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x599F2F9E)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599F2F9C)
 I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599F2F9E)
 I (Algorithmus\Lowpass.h)(0x5ACE3249)
-I (Algorithmus\CyclicShift.h)(0x5ACE3249)
+I (Algorithmus\CyclicShift.h)(0x5AD79059)
 I (../../MCU/utils/am_util.h)(0x5AB558FF)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
 I (../../MCU/utils/am_util_debug.h)(0x5AB558FF)

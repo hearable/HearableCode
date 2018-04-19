@@ -10,7 +10,7 @@ float* LowpassFilter(int windowSize, float sampleFrequency, float cutOffFrequenc
     int finalbin = (windowSize) * ((cutOffFrequency/sampleFrequency)+(1.0f/(windowSize+1)));
 
 
-    // Pick a hanning window which is twice as wide, and only take half of it
+    // Pick a hanning window which is twice as wide, and only take half of it -> smoother rolloff
     float* hanningWindow = HanningWindow(2*rolloff, SYMMETRIC);
 
     for(int i=0;i<finalbin-((rolloff+1)/2);i++){

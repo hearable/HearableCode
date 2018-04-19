@@ -7,7 +7,7 @@ void CyclicForwardShift(float* spectrumRe, float* spectrumIm, int windowSize, fl
 
     float frequencyResolution = sampleFrequency/windowSize;
 	
-    int offset = ((int)(shiftFrequency/frequencyResolution)); // Offset in Binarray; Round up to the next bin
+    int offset = ((int)(shiftFrequency/frequencyResolution)); // Offset in Binarray
     float* tempDataRe = (float*) calloc(windowSize, sizeof(float));
     float* tempDataIm = (float*) calloc(windowSize, sizeof(float));
 
@@ -54,7 +54,7 @@ void CyclicCosineForwardShift(float* spectrumRe, float* spectrumIm, int windowSi
 		float* tempDataRe = (float*) calloc(windowSize/2+1, sizeof(float));
     float* tempDataIm = (float*) calloc(windowSize/2+1, sizeof(float));
 	
-		float frequencyResolution = sampleFrequency/windowSize;
+		float frequencyResolution = sampleFrequency/windowSize; // Minimal frequency shift 
 	
     int offset = ((int)(shiftFrequency/frequencyResolution));
 	
@@ -68,9 +68,10 @@ void CyclicCosineForwardShift(float* spectrumRe, float* spectrumIm, int windowSi
 		tempDataRe[(windowSize/2)] /= 2;
 		tempDataIm[(windowSize/2)] /= 2;
 		
+		
 		CyclicForwardShift(tempDataRe, tempDataIm, ((windowSize/2)+1), sampleFrequency, shiftFrequency);
 		
-		for(int i=0;i<(windowSize/2)+1;i++){
+		for(int i=1;i<(windowSize/2)+1;i++){
 			spectrumRe[i] = tempDataRe[i];
 			spectrumIm[i] = tempDataIm[i];
 		}
@@ -132,7 +133,7 @@ void CyclicCosineModulationInTime(float* data, int windowSize, float sampleFrequ
 }
 
 // This function is implemented in time domain
-// Saves time by not always recomputing this cosine terms
+// Saves time by not always recomputing cosine terms
 void CyclicCosineModulationInTime_static(float* data, int windowSize, float* vector){
 		for(int i=0;i<windowSize;i++){
 			data[i] *= vector[i];
@@ -146,7 +147,7 @@ void InitializeCosineVector(float* vector, int windowSize, float sampleFrequency
 			vector[i] = cos((2*PI*(((shiftFrequency + phaseShift)/sampleFrequency))*i));
 		}
 }
-
+// not used
 void InitializeCosineVectorAutoShift(float* vector, int windowSize, float sampleFrequency, float shiftFrequency){
 		
 		float frequencyResolution = sampleFrequency/windowSize;
