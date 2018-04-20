@@ -31,7 +31,7 @@ volatile uint32_t* PWMArray;
 volatile uint32_t ADCIndex;
 volatile uint32_t* ADCArray;
 
-const int PWMPeriod = 256; 
+const int PWMPeriod = 512; 
 const int ADCPeriod = 1024;
 
 // For documentation on how the semaphores are used, please see the corresponding scheme
@@ -83,7 +83,7 @@ void PWMInterrupt(void){ // This is called if the timer associated with PWM gene
 		
     am_hal_ctimer_period_set(2, AM_HAL_CTIMER_TIMERB, PWMPeriod, PWMArray[PWMIndex]);
 		//am_util_debug_printf("%u \n",PWMArray[PWMIndex]);
-    PWMIndex = (PWMIndex + 1) % (4*windowSize);
+    PWMIndex = (PWMIndex + 1) % (windowSize);
 }
 
 uint32_t am_freertos_sleep(uint32_t idleTime)
@@ -161,12 +161,13 @@ void ADCTask(void* args){
 	//am_util_debug_printf("Semaphore taken!\n");
 	for(;;){
 		xSemaphoreTake(SemaphoreIntADC, portMAX_DELAY);
+		//taskENTER_CRITICAL();
 		for(int i=0;i<12;i++)
       {
         ui32FifoData = am_hal_adc_fifo_pop();
 				//am_util_stdio_printf("%d \n", ((ui32FifoData)&0x0000FFC0)>>6);
-				ADCArray[ADCIndex] = ((AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData))&0x00003FC0)>>6; // 8Bit Mask
-				//am_util_debug_printf("%d \n", ADCArray[ADCIndex]);
+				ADCArray[ADCIndex] = (((AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData))&0x00003FC0)>>6); // 8Bit Mask
+				//am_util_debug_printf("%d ADC \n", ADCArray[ADCIndex]);
 				
 				if((ADCIndex+1)%windowSize == 0){
 					//am_util_debug_printf("Should start T1 now... \n");
@@ -179,6 +180,7 @@ void ADCTask(void* args){
         //g_ui32ADCSampleBuffer[g_ui32ADCSampleIndex] = AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData);
         //g_ui32ADCSampleIndex = (g_ui32ADCSampleIndex + 1) & ADC_SAMPLE_INDEX_M;
       }
+			//taskEXIT_CRITICAL();
 	}		
 }
 
@@ -196,8 +198,9 @@ void AlgorithmTask(void* args){
                     xargs->currentWindowRe, xargs->currentWindowIm, xargs->currentSample, xargs->shiftVector, xargs->currentOutput);
 		ReturnWindowOutputHanning(windowSize, 0.5f, xargs->currentOutput, MID, xargs->currentResult);
 		for(int i=0;i<windowSize/2;i++){
-			xargs->currentResult[i] = ((PWMPeriod/2) + (xargs->currentResult[i]/(2.1f))); // Dividing by 2.1f to be sure to never get 0 or PWMPeriod. Those values don't work well with PWM generation. Only affects Amplitude
-			//am_util_debug_printf("%f \n",xargs->currentResult[i]);
+			//am_util_debug_printf("%f  a\n",xargs->currentResult[i]);
+			xargs->currentResult[i] = ((PWMPeriod/2) + (((xargs->currentResult[i])-256))); // Dividing by 2.1f to be sure to never get 0 or PWMPeriod. Those values don't work well with PWM generation. Only affects Amplitude
+			//am_util_debug_printf("%f  b\n",xargs->currentResult[i]);
 		}
 		//am_util_debug_printf("Alg done!\n");
 		//am_util_debug_printf("%u ms - after Alg \n",(uint32_t)(am_hal_stimer_counter_get()*1000/32768))
@@ -241,10 +244,8 @@ void T2Task(void* args){
 		xSemaphoreTake(SemaphoreT1T2, portMAX_DELAY);
 		taskENTER_CRITICAL(); // Make sure the data is transfered completely
 		for(int j=0;j<windowSize/2;j++){ // Each data point is quadrupled. This allows for a higher PWM modulation frequency which isn't audible. (Kind of a hack, since the 48Mhz Clock isn't available on timers)
-			PWMArray[(i*2*windowSize)+((4*j))] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
-			PWMArray[(i*2*windowSize)+((4*j)+1)] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
-			PWMArray[(i*2*windowSize)+((4*j)+2)] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
-			PWMArray[(i*2*windowSize)+((4*j)+3)] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
+			PWMArray[(i*windowSize)+((2*j))] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
+			PWMArray[(i*windowSize)+((2*j)+1)] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
 		}
 		i++;
 		i%=2;
@@ -316,8 +317,8 @@ run_tasks(void)
 		am_hal_interrupt_priority_set(AM_HAL_INTERRUPT_CTIMER, 255);
 	
 		PWMIndex = 0;
-		PWMArray= (uint32_t*) calloc(4*windowSize, sizeof(uint32_t));
-		for(int i=0;i<4*windowSize;i++){
+		PWMArray= (uint32_t*) calloc(2*windowSize, sizeof(uint32_t));
+		for(int i=0;i<2*windowSize;i++){
 			PWMArray[i] = PWMPeriod-1;
 		}
 
@@ -387,7 +388,7 @@ run_tasks(void)
                                  AM_HAL_CTIMER_PIN_ENABLE));
 
 		
-    am_hal_ctimer_period_set(2, AM_HAL_CTIMER_TIMERB, PWMPeriod, PWMPeriod-1);
+    am_hal_ctimer_period_set(2, AM_HAL_CTIMER_TIMERB, PWMPeriod, PWMPeriod/2);
 		am_hal_ctimer_int_register(AM_HAL_CTIMER_INT_TIMERB2, PWMInterrupt);
     am_hal_ctimer_int_enable(AM_HAL_CTIMER_INT_TIMERB2);
 		
