@@ -74,6 +74,10 @@ float* ProcessData(int windowSize, float overlappercentage, float sampleFrequenc
                     float* currentWindowRe, float* currentWindowIm, float* currentSample, OverlapPart part){
 
     int overlapIndex = (int)((windowSize+1)*(1.0f-overlappercentage));
+											
+		float* tempSample = calloc(windowSize, sizeof(float));
+		
+											
     ApplyWindow(windowSize,currentWindowRe,currentWindowIm,previousWindowRe,previousWindowIm,currentSample,window);
 																			
     Fft_transform(currentWindowRe, currentWindowIm, windowSize);

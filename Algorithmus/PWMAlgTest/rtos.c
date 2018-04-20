@@ -83,7 +83,7 @@ void PWMInterrupt(void){ // This is called if the timer associated with PWM gene
 		
     am_hal_ctimer_period_set(2, AM_HAL_CTIMER_TIMERB, PWMPeriod, PWMArray[PWMIndex]);
 		//am_util_debug_printf("%u \n",PWMArray[PWMIndex]);
-    PWMIndex = (PWMIndex + 1) % (windowSize);
+    PWMIndex = (PWMIndex + 1) % (2*windowSize);
 }
 
 uint32_t am_freertos_sleep(uint32_t idleTime)
@@ -170,6 +170,10 @@ void ADCTask(void* args){
 				//am_util_debug_printf("%d ADC \n", ADCArray[ADCIndex]);
 				
 				if((ADCIndex+1)%windowSize == 0){
+					for(int i=0;i<windowSize/2;i++){
+						ADCArray[(ADCIndex+1+i)%(3*windowSize)] = ADCArray[((ADCIndex-(windowSize/2))+1+i)%(3*windowSize)];
+					}
+					ADCIndex += (windowSize/2);
 					//am_util_debug_printf("Should start T1 now... \n");
 					xSemaphoreGive(SemaphoreADCT1);
 					vTaskResume(xT1Task);
