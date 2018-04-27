@@ -96,15 +96,15 @@ void ProcessData_tweaked(int windowSize, float overlappercentage, float sampleFr
     int overlapIndex = (int)((windowSize+1)*(1.0f-overlappercentage));
     ApplyWindow(windowSize,currentWindowRe,currentWindowIm,previousWindowRe,previousWindowIm,currentSample,window);				
     Fft_transform_static(currentWindowRe, currentWindowIm, windowSize, sin_table, cos_table);												
-    /*for(int i=0;i<windowSize;i++){
+    for(int i=0;i<windowSize;i++){
             currentWindowIm[i] *= lowpassFilter[i];
             currentWindowRe[i] *= lowpassFilter[i];
-    }*/
+    }
 		CyclicCosineForwardShift(currentWindowRe, currentWindowIm, windowSize, sampleFrequency, shiftFrequency);
-		/*for(int i=0;i<windowSize;i++){
+		for(int i=0;i<windowSize;i++){
             currentWindowIm[i] *= lowpassFilter[i];
             currentWindowRe[i] *= lowpassFilter[i];
-    }*/
+    }
     Fft_inverseTransform_static(currentWindowRe, currentWindowIm, windowSize, sin_table, cos_table);
 
     OverlapAddHanning(windowSize, overlappercentage, currentWindowRe, previousWindowRe, currentOutput);

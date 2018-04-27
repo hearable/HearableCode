@@ -102,7 +102,7 @@ main(void)
 		
     am_util_stdio_terminal_clear();
 		
-		TestSetup(MUTE, 256, 1);
+		TestSetup(VERBOSE, 256, 1);
 	
     am_bsp_debug_printf_disable();
 

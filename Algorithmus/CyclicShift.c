@@ -80,8 +80,8 @@ void CyclicCosineForwardShift(float* spectrumRe, float* spectrumIm, int windowSi
 			spectrumIm[windowSize-i] = -spectrumIm[i];
 		}
 		
-		spectrumRe[0] *= 2;
-		spectrumIm[0] *= 2;
+		spectrumRe[0] *= 0;
+		spectrumIm[0] *= 0;
 		spectrumRe[(windowSize/2)] *= 2;
 		spectrumIm[(windowSize/2)] *= 2;
 	

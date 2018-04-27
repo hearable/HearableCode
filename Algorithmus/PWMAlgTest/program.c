@@ -21,7 +21,7 @@
 	#define PI 3.14159265359
 #endif
 
-const int windowSize = 64;
+const int windowSize = 512;
 
 // PWMIndex and PWMArray are used for data exchange between the Algorithm and the PWM generator
 volatile uint32_t PWMIndex;
@@ -38,12 +38,15 @@ const int ADCPeriod = 1024;
 static SemaphoreHandle_t SemaphoreIntADC;
 static SemaphoreHandle_t SemaphoreADCT1;
 static SemaphoreHandle_t SemaphoreAlgT1;
+static SemaphoreHandle_t SemaphoreT1Alg;
 static SemaphoreHandle_t SemaphoreT2Alg;
 static SemaphoreHandle_t SemaphoreAlgT2;
 static SemaphoreHandle_t SemaphoreT2T1;
+static SemaphoreHandle_t SemaphoreT1T2;
 
 static TaskHandle_t xADCTask = NULL;
 static TaskHandle_t xT1Task = NULL;
+static TaskHandle_t xAlgorithmTask = NULL;
 static TaskHandle_t xT2Task = NULL;
 
 void
@@ -79,8 +82,7 @@ am_adc_isr(void)
 void PWMInterrupt(void){ // This is called if the timer associated with PWM generation causes an interrupt
 		
     am_hal_ctimer_period_set(2, AM_HAL_CTIMER_TIMERB, PWMPeriod, PWMArray[PWMIndex]);
-		//am_util_debug_printf("PWM: %u \n",PWMArray[PWMIndex]);
-		//am_util_debug_printf("PWMIndex: %u \n",PWMIndex);
+		//am_util_debug_printf("%u \n",PWMArray[PWMIndex]);
     PWMIndex = (PWMIndex + 1) % (2*windowSize);
 }
 
@@ -147,7 +149,7 @@ typedef struct AlgorithmArguments{ // All data storage which is used in the algo
 } AlgorithmArguments;
 		
 
-AlgorithmArguments algArgs;
+AlgorithmArguments Alg;
 T1Arguments T1;
 T2Arguments T2;
 		
@@ -165,7 +167,7 @@ void ADCTask(void* args){
         ui32FifoData = am_hal_adc_fifo_pop();
 				//am_util_stdio_printf("%d \n", ((ui32FifoData)&0x0000FFC0)>>6);
 				ADCArray[ADCIndex] = (((AM_HAL_ADC_FIFO_FULL_SAMPLE(ui32FifoData))&0x00003FC0)>>6); // 8Bit Mask
-				//am_util_debug_printf("%d ADC \n", ADCArray[ADCIndex]);
+				am_util_debug_printf("%d ADC \n", ADCArray[ADCIndex]);
 				
 				if((ADCIndex+1)%windowSize == 0){
 					for(int i=0;i<windowSize/2;i++){
@@ -183,29 +185,34 @@ void ADCTask(void* args){
         //g_ui32ADCSampleIndex = (g_ui32ADCSampleIndex + 1) & ADC_SAMPLE_INDEX_M;
       }
 			//taskEXIT_CRITICAL();
-			//am_util_debug_printf("ADC done!\n");
 	}		
 }
 
-void Algorithm(void){
-	//am_util_debug_printf("Alg started!\n");
+void AlgorithmTask(void* args){
+	am_util_debug_printf("Alg started!\n");
+	AlgorithmArguments* xargs = (AlgorithmArguments*) args;
 	
+	for(;;){
+		xSemaphoreTake(SemaphoreT1Alg, portMAX_DELAY);
+		xSemaphoreTake(SemaphoreT2Alg, portMAX_DELAY);
 		//am_hal_stimer_counter_clear();
 		// For reference on what ProcessData_tweaked does, refer to Utils.h
-		ProcessData_tweaked(windowSize, 0.5f, algArgs.sampleFrequency, algArgs.shiftFrequency,
-                    algArgs.lowpassFilter, algArgs.hanningWindow, algArgs.sinTable, algArgs.cosTable, algArgs.previousWindowRe, algArgs.previousWindowIm,
-                    algArgs.currentWindowRe, algArgs.currentWindowIm, algArgs.currentSample, algArgs.shiftVector, algArgs.currentOutput);
-		ReturnWindowOutputHanning(windowSize, 0.5f, algArgs.currentOutput, MID, algArgs.currentResult);
+		ProcessData_tweaked(windowSize, 0.5f, xargs->sampleFrequency, xargs->shiftFrequency,
+                    xargs->lowpassFilter, xargs->hanningWindow, xargs->sinTable, xargs->cosTable, xargs->previousWindowRe, xargs->previousWindowIm,
+                    xargs->currentWindowRe, xargs->currentWindowIm, xargs->currentSample, xargs->shiftVector, xargs->currentOutput);
+		ReturnWindowOutputHanning(windowSize, 0.5f, xargs->currentOutput, MID, xargs->currentResult);
 		for(int i=0;i<windowSize/2;i++){
-			//am_util_debug_printf("%f  a\n",algArgs.currentResult[i]);
-			algArgs.currentResult[i] = ((PWMPeriod/2) + (algArgs.currentResult[i])); // Dividing by 2.1f to be sure to never get 0 or PWMPeriod. Those values don't work well with PWM generation. Only affects Amplitude
-			//am_util_debug_printf("%f Alg b\n",algArgs.currentResult[i]);
+			//am_util_debug_printf("%f  a\n",xargs->currentResult[i]);
+			xargs->currentResult[i] = ((PWMPeriod/2) + (((xargs->currentResult[i])-128))); // Dividing by 2.1f to be sure to never get 0 or PWMPeriod. Those values don't work well with PWM generation. Only affects Amplitude
+			am_util_debug_printf("%f  b\n",xargs->currentResult[i]);
 		}
 		//am_util_debug_printf("Alg done!\n");
-		xSemaphoreGive(SemaphoreAlgT2);
 		//am_util_debug_printf("%u ms - after Alg \n",(uint32_t)(am_hal_stimer_counter_get()*1000/32768))
+		xSemaphoreGive(SemaphoreAlgT1);
+		xSemaphoreGive(SemaphoreAlgT2);
 		//vTaskResume(xT2Task);
 		//vTaskSuspend(NULL);
+	}
 }
 
 void T1Task(void* args){
@@ -215,6 +222,8 @@ void T1Task(void* args){
 	
 	for(;;){
 		xSemaphoreTake(SemaphoreADCT1, portMAX_DELAY);
+		xSemaphoreTake(SemaphoreAlgT1, portMAX_DELAY);
+		xSemaphoreTake(SemaphoreT2T1, portMAX_DELAY);
 		//taskENTER_CRITICAL(); // Make sure the data is transfered completely
 		for(int j=0;j<windowSize;j++){
 			xargs->AlgorithmPointer[j] = ADCArray[(i*windowSize)+j];
@@ -222,8 +231,9 @@ void T1Task(void* args){
 		i++;
 		i%=3;
 		//taskEXIT_CRITICAL();
-		//am_util_debug_printf("T1 done!\n");
-		Algorithm();
+		am_util_debug_printf("T1 done!\n");
+		xSemaphoreGive(SemaphoreT1Alg);
+		xSemaphoreGive(SemaphoreT1T2);
 		//vTaskResume(xAlgorithmTask);
 		//vTaskSuspend(NULL);
 	}
@@ -235,6 +245,7 @@ void T2Task(void* args){
 	
 	for(;;){
 		xSemaphoreTake(SemaphoreAlgT2, portMAX_DELAY);
+		xSemaphoreTake(SemaphoreT1T2, portMAX_DELAY);
 		//taskENTER_CRITICAL(); // Make sure the data is transfered completely
 		for(int j=0;j<windowSize/2;j++){ // Each data point is quadrupled. This allows for a higher PWM modulation frequency which isn't audible. (Kind of a hack, since the 48Mhz Clock isn't available on timers)
 			PWMArray[(i*windowSize)+((2*j))] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
@@ -242,9 +253,10 @@ void T2Task(void* args){
 		}
 		i++;
 		i%=2;
-		//am_util_debug_printf("RTT: %u \n",timepassed_inms(32768));
 		//taskEXIT_CRITICAL();
-		//am_util_debug_printf("T2 done!\n");
+		am_util_debug_printf("T2 done!\n");
+		xSemaphoreGive(SemaphoreT2Alg);
+		xSemaphoreGive(SemaphoreT2T1);
 		//vTaskSuspend(NULL);
 	}
 }
@@ -280,7 +292,7 @@ init_timerA3_for_ADC(void)
 {
 
     am_hal_ctimer_config_single(3, AM_HAL_CTIMER_TIMERA,
-                                   AM_HAL_CTIMER_HFRC_12MHZ |
+                                   AM_HAL_CTIMER_HFRC_12KHZ |
                                    AM_HAL_CTIMER_FN_REPEAT |
                                    AM_HAL_CTIMER_INT_ENABLE |
                                    AM_HAL_CTIMER_PIN_ENABLE);
@@ -318,53 +330,42 @@ run_tasks(void)
 		ADCArray = (uint32_t*) calloc(3*windowSize, sizeof(uint32_t));
 	 
 		// Initialization of algorithm
-		algArgs.currentSample = calloc(windowSize, sizeof(float));
-		algArgs.currentWindowRe = calloc(windowSize, sizeof(float));
-		algArgs.currentWindowIm = calloc(windowSize, sizeof(float));
-		algArgs.previousWindowRe = calloc(windowSize, sizeof(float));
-		algArgs.previousWindowIm = calloc(windowSize, sizeof(float));
-		algArgs.hanningWindow = calloc(windowSize, sizeof(float));
-		algArgs.lowpassFilter = calloc(windowSize, sizeof(float));
-		algArgs.currentOutput = calloc(2*windowSize, sizeof(float));
-		algArgs.currentResult = calloc(windowSize, sizeof(float));
-		algArgs.sampleFrequency = 12000.0f;
-		algArgs.shiftFrequency = 0.0f;
-		algArgs.cutOffFrequency = 4000.0f;
-		algArgs.lowpassRolloff = 4;
-		algArgs.sinTable = (float*) calloc(windowSize/2, sizeof(float));
-		algArgs.cosTable = (float*) calloc(windowSize/2, sizeof(float));
+		Alg.currentSample = calloc(windowSize, sizeof(float));
+		Alg.currentWindowRe = calloc(windowSize, sizeof(float));
+		Alg.currentWindowIm = calloc(windowSize, sizeof(float));
+		Alg.previousWindowRe = calloc(windowSize, sizeof(float));
+		Alg.previousWindowIm = calloc(windowSize, sizeof(float));
+		Alg.hanningWindow = calloc(windowSize, sizeof(float));
+		Alg.lowpassFilter = calloc(windowSize, sizeof(float));
+		Alg.currentOutput = calloc(2*windowSize, sizeof(float));
+		Alg.currentResult = calloc(windowSize, sizeof(float));
+		Alg.sampleFrequency = 12000.0f;
+		Alg.shiftFrequency = 0.0f;
+		Alg.cutOffFrequency = 4000.0f;
+		Alg.lowpassRolloff = 4;
+		Alg.sinTable = (float*) calloc(windowSize/2, sizeof(float));
+		Alg.cosTable = (float*) calloc(windowSize/2, sizeof(float));
 		
 		for (int i = 0; i < windowSize / 2; i++) {
-			algArgs.cosTable[i] = cos(2 * PI * i / windowSize);
-			algArgs.sinTable[i] = sin(2 * PI * i / windowSize);
+			Alg.cosTable[i] = cos(2 * PI * i / windowSize);
+			Alg.sinTable[i] = sin(2 * PI * i / windowSize);
 		}
 		
-		algArgs.shiftVector = (float*) calloc(windowSize, sizeof(float));
-		InitializeCosineVectorAutoShift(algArgs.shiftVector, windowSize, algArgs.sampleFrequency, algArgs.shiftFrequency);
-		algArgs.hanningWindow = HanningWindow(windowSize, PERIODIC);
-		algArgs.lowpassFilter = LowpassFilter(windowSize,algArgs.sampleFrequency,algArgs.cutOffFrequency,algArgs.lowpassRolloff);
-		// Initialization of algArgsorithm done
+		Alg.shiftVector = (float*) calloc(windowSize, sizeof(float));
+		InitializeCosineVectorAutoShift(Alg.shiftVector, windowSize, Alg.sampleFrequency, Alg.shiftFrequency);
+		Alg.hanningWindow = HanningWindow(windowSize, PERIODIC);
+		Alg.lowpassFilter = LowpassFilter(windowSize,Alg.sampleFrequency,Alg.cutOffFrequency,Alg.lowpassRolloff);
+		// Initialization of algorithm done
 	
 		// Initialization of T1
-		T1.AlgorithmPointer = algArgs.currentSample;
+		T1.AlgorithmPointer = Alg.currentSample;
 		
 		// Initialization of T2
-		T2.AlgorithmPointer = algArgs.currentResult;
-		
-		SemaphoreIntADC = xSemaphoreCreateBinary();
-		SemaphoreADCT1 = xSemaphoreCreateBinary();
-		SemaphoreAlgT1 = xSemaphoreCreateBinary();
-		SemaphoreT2Alg = xSemaphoreCreateBinary();
-		SemaphoreAlgT2 = xSemaphoreCreateBinary();
-		SemaphoreT2T1 = xSemaphoreCreateBinary();
-		
-		xSemaphoreGive(SemaphoreAlgT1);
-		xSemaphoreGive(SemaphoreT2Alg);
-		xSemaphoreGive(SemaphoreT2T1);
+		T2.AlgorithmPointer = Alg.currentResult;
 
     xTaskCreate( ADCTask, "ADCTask", 400, NULL, 4, &xADCTask );
 		xTaskCreate( T1Task, "T1Task", 400, &T1, 2, &xT1Task );
-//		xTaskCreate( AlgorithmTask, "AlgorithmTask", 400, &Alg, 0, &xAlgorithmTask );
+		xTaskCreate( AlgorithmTask, "AlgorithmTask", 400, &Alg, 0, &xAlgorithmTask );
 		xTaskCreate( T2Task, "T2Task", 400, &T2, 3, &xT2Task );
 		
 		am_hal_gpio_pin_config(AM_BSP_GPIO_LED3, AM_HAL_PIN_30_TCTB2);
@@ -373,7 +374,7 @@ run_tasks(void)
 		// PWM Interrupt Setup
 		am_hal_ctimer_config_single(2, AM_HAL_CTIMER_TIMERB,
                                 (AM_HAL_CTIMER_FN_PWM_REPEAT |
-																 AM_HAL_CTIMER_HFRC_12MHZ|
+																 AM_HAL_CTIMER_HFRC_12KHZ |
                                  AM_HAL_CTIMER_INT_ENABLE |
                                  AM_HAL_CTIMER_PIN_ENABLE));
 
@@ -399,7 +400,6 @@ run_tasks(void)
 		//vTaskSuspend(xT2Task);
 		//vTaskSuspend(xAlgorithmTask);
 		am_util_debug_printf("Tasks started\n");
-		stimer_init();
 	
     vTaskStartScheduler();
 		
