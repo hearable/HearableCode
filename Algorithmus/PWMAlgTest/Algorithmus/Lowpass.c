@@ -7,7 +7,7 @@
 float* LowpassFilter(int windowSize, float sampleFrequency, float cutOffFrequency, int rolloff){
     float* resultValue = (float*) calloc(windowSize, sizeof(float));
 
-    int finalbin = (windowSize) * ((cutOffFrequency/sampleFrequency)+(1.0f/(windowSize+1)));
+    int finalbin = (windowSize) * ((cutOffFrequency/(2*sampleFrequency))+(1.0f/(windowSize+1)));
 
 
     // Pick a hanning window which is twice as wide, and only take half of it -> smoother rolloff

@@ -21,7 +21,7 @@
 	#define PI 3.14159265359
 #endif
 
-const int windowSize = 64;
+const int windowSize = 512;
 
 // PWMIndex and PWMArray are used for data exchange between the Algorithm and the PWM generator
 volatile uint32_t PWMIndex;
@@ -32,7 +32,7 @@ volatile uint32_t ADCIndex;
 volatile uint32_t* ADCArray;
 
 const int PWMPeriod = 512; 
-const int ADCPeriod = 1024;
+const int ADCPeriod = 32;
 
 // For documentation on how the semaphores are used, please see the corresponding scheme
 static SemaphoreHandle_t SemaphoreIntADC;
@@ -198,8 +198,8 @@ void Algorithm(void){
 		ReturnWindowOutputHanning(windowSize, 0.5f, algArgs.currentOutput, MID, algArgs.currentResult);
 		for(int i=0;i<windowSize/2;i++){
 			//am_util_debug_printf("%f  a\n",algArgs.currentResult[i]);
-			algArgs.currentResult[i] = ((PWMPeriod/2) + (algArgs.currentResult[i])); // Dividing by 2.1f to be sure to never get 0 or PWMPeriod. Those values don't work well with PWM generation. Only affects Amplitude
-			//am_util_debug_printf("%f Alg b\n",algArgs.currentResult[i]);
+			algArgs.currentResult[i] = ((algArgs.currentResult[i])+5); // Dividing by 2.1f to be sure to never get 0 or PWMPeriod. Those values don't work well with PWM generation. Only affects Amplitude
+			//am_util_debug_printf("%u Alg b\n",(uint32_t)algArgs.currentResult[i]);
 		}
 		//am_util_debug_printf("Alg done!\n");
 		xSemaphoreGive(SemaphoreAlgT2);
@@ -238,13 +238,14 @@ void T2Task(void* args){
 		//taskENTER_CRITICAL(); // Make sure the data is transfered completely
 		for(int j=0;j<windowSize/2;j++){ // Each data point is quadrupled. This allows for a higher PWM modulation frequency which isn't audible. (Kind of a hack, since the 48Mhz Clock isn't available on timers)
 			PWMArray[(i*windowSize)+((2*j))] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
-			PWMArray[(i*windowSize)+((2*j)+1)] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
+			PWMArray[(i*windowSize)+((2*j))+1] = (uint32_t)(xargs->AlgorithmPointer[j]+0.5f);
+			//PWMArray[(i*windowSize)+((2*j)+1)] = (uint32_t)(0.5f*((xargs->AlgorithmPointer[j]+0.5f)+(xargs->AlgorithmPointer[(j+1)%windowSize]+0.5f)));
 		}
 		i++;
 		i%=2;
 		//am_util_debug_printf("RTT: %u \n",timepassed_inms(32768));
 		//taskEXIT_CRITICAL();
-		//am_util_debug_printf("T2 done!\n");
+		am_util_debug_printf("T2 done!\n");
 		//vTaskSuspend(NULL);
 	}
 }
@@ -260,14 +261,14 @@ adc_config(void)
     sADCConfig.ui32Clock = AM_HAL_ADC_CLOCK_HFRC;
     sADCConfig.ui32TriggerConfig = AM_HAL_ADC_TRIGGER_SOFT;
     sADCConfig.ui32Reference = AM_HAL_ADC_REF_INT_1P5;
-    sADCConfig.ui32ClockMode = AM_HAL_ADC_CK_LOW_POWER;
+    sADCConfig.ui32ClockMode = AM_HAL_ADC_CK_LOW_LATENCY;
     sADCConfig.ui32PowerMode = AM_HAL_ADC_LPMODE_0;
     sADCConfig.ui32Repeat = AM_HAL_ADC_REPEAT;
     am_hal_adc_config(&sADCConfig);
 
     am_hal_adc_int_enable(AM_HAL_ADC_INT_FIFOOVR1);
 
-    am_hal_adc_slot_config(0, AM_HAL_ADC_SLOT_AVG_1 |
+    am_hal_adc_slot_config(0, AM_HAL_ADC_SLOT_AVG_32 |
 															AM_HAL_ADC_SLOT_8BIT |
                               AM_HAL_ADC_SLOT_CHSEL_SE0 |
                               AM_HAL_ADC_SLOT_ENABLE);
